@@ -109,12 +109,25 @@ The frames recieved from the camera are buffered on the Jetson via a sliding win
 We built a Docker container to facilitate training in the cloud. The container is built on the base Pytorch containerand facilitates deploying instances to allow simultaneous training of models . The code in this repo is largely a reuse of the pytorch vision video classification code from here https://github.com/pytorch/vision.git
 While vision/references/video_classification/train.py in the pytorch repo uses PyAV to process the videos, here we do not use PyAV, we instead use a sequence of image files to create the training dataset. The downloader downloads videos from youtube as a collection of images and also prepares an annotation file.
 
-### 5.2 Steps
-* Prepare the training list, the ones we wish to download from YouTube and tag them appropriately
+### 5.1 Steps
+* Prepare the *training list*, the ones we wish to download from YouTube and tag them appropriately
   * Each entry in the video list needs to be of the format:
   {'url':"\<url of the video>", 'category':'\<category>', 'start': \<start seconds>, 'end': \<end seconds>}
   * e.g., the list file should look like, start and end are time in seconds, category is the label which should be known
   [{'url':"\<url>", 'category': "\<cat>", 'start': 506, 'end': 508}, {'url':"\<url>", 'category': "\<cat>", 'start': 123, 'end': 127}]
+
+* Pull docker image & run the cdocker container
+  * docker pull mayukhd/torch1.7:videoclassification
+  * docker run -it --rm --runtime=nvidia -p 8888:8888 -p 6006:6006 -v ~/Action_Recognition/torchvideoclf:/app mayukhd/torch1.7:videoclassification
+
+* Download the images from YouTube using the downloader utility
+  * python3 download.py --train_video_list=<full path to the training list> --dataset_traindir=<full path to where the image sequences for training should be saved> --val_video_list=<full path to the test list> --dataset_valdir=<full path to where the image sequences for validation should be saved>
+
+* Start Training
+  * The code uses GPU by default, you can change it via the --device parameter when running
+  * python3 train.py --train-dir=dataset/train --val-dir=dataset/val --output-dir=checkpoint --pretrained
+  * run tensorboard --logdir=runs in another session
+  * goto https://<url>:6006 to view the training metrics
 
 ### 5.2 Results
 - Validation Accuracy 1 = 50.909 
