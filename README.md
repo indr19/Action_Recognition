@@ -45,14 +45,25 @@ In the current project ,we plan to detect 'unmindful prdestrains/'cyclists'.  On
 2. The training data is labelled correctly
 
 ### 2.3 System Design
-Our solutions consists of the following
-1. The Cloud - We are using a R(2D+1) Model trained in AWS . The specifications for the same are 
-  - NVIDIA Deep Learning AMI v20.11.0-46a68101-e56b-41cd-8e32-631ac6e5d02b
-  -  g4dn.2xlarge
+We are using a R(2D+1) Model trained  We are using Jetson Xavier NX for our inference. Trained models are saved over to Jetson device and used for testing.The USB cam on the xavier will stream in the video feeds and the pre-trained model will predict if there is a 'pedestrian approaching' or a 'cyclist approaching' in the view of the camera.
+Note: this is different than just detecting if there is a pedestrian in the frame, while driving on the streets, there will be predestrians in the view, our approach here is to detect when the pedestrain is dangerously close to the vehicle or moving in a way that could potenially mean them intercepting the path of the moving vehicle. It's easy for humans to detect such situations since we have plethora of experiences detecting when a situation may develop with the slightest of the hints. 
 
-2. The Data - It is trained on Kinetics400 dataset, a benchmark dataset for human-action recognition. The accuracy is reported on the traditional validation split.
+1. The Cloud
+  * Specifications
+    * NVIDIA Deep Learning AMI v20.11.0-46a68101-e56b-41cd-8e32-631ac6e5d02b
+    * g4dn.2xlarge
+  
+  * Configure the Virtual m/c
+    * aws ec2 create-security-group --group-name hw09 --description "FinalProj" --vpc-id vpc-id
+    * aws ec2 authorize-security-group-ingress --group-id security_group_id --protocol tcp --port 1-65535 --cidr 0.0.0.0/0
+    * aws ec2 run-instances --image-id ami-05637fb3a5183e0d0 --instance-type g4dn.2xlarge --security-group-ids sg-048b5ebd6f504557d --associate-public-ip-address --key-name DeepKey --count 1
 
-3. The Edge Device - We are using Jetson Xavier NX for our inference. Trained models are saved over to Jetson device and used for testing.The USB cam on the xavier will stream in the video feeds and the pre-trained model will predict if there is a 'pedestrian approaching' or a 'cyclist approaching' in the view of the camera. Note: this is different than just detecting if there is a pedestrian in the frame, while driving on the streets, there will be predestrians in the view, our approach here is to detect when the pedestrain is dangerously close to the vehicle or moving in a way that could potenially mean them intercepting the path of the moving vehicle. It's easy for humans to detect such situations since we have plethora of experiences detecting when a situation may develop with the slightest of the hints. 
+2. The Data
+- Kinetics400 dataset, a benchmark dataset for human-action recognition. The accuracy is reported on the traditional validation split.
+- Labelled data from Youtube
+
+3. The Edge Device
+- Jetson Xavier NX
 
 ![System diagram](https://github.com/indr19/Action_Recognition/blob/master/images/W251%20System%20Design.png)
 
@@ -100,7 +111,10 @@ number of classes: 400</br>
 ## <a id="Imgen">4.0 Generating Training Data
   
 ## 4.1 Generating train data
-We relied on videos from Youtube covering pedestrian actions , cyclists and empty roads.
+We relied on videos from Youtube covering 3 classes 
+* pedestrians
+* cyclists
+* no pedestrians
   
 ## 4.2 Testing with live feed
 The jetson xavier was mounted on the dashboard of the car. The USB cam on the xavier will stream in the video feeds and the pre-trained model will predict if there is a 'pedestrian approaching' or a 'cyclist approaching' in the view of the camera.
