@@ -18,6 +18,7 @@
 
 [6.0 Inferencing at the Edge](#Edge)
 
+[7.0 E2E Run](#E2E)
 
 ## <a id="Introduction">1.0 Introduction
 
