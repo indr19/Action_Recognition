@@ -53,7 +53,7 @@ Our solutions consists of the following
 
 3. The Edge Device - We are using Jetson Xavier NX for our inference. Trained models are saved over to Jetson device and used for testing.The USB cam on the xavier will stream in the video feeds and the pre-trained model will predict if there is a 'pedestrian approaching' or a 'cyclist approaching' in the view of the camera. Note: this is different than just detecting if there is a pedestrian in the frame, while driving on the streets, there will be predestrians in the view, our approach here is to detect when the pedestrain is dangerously close to the vehicle or moving in a way that could potenially mean them intercepting the path of the moving vehicle. It's easy for humans to detect such situations since we have plethora of experiences detecting when a situation may develop with the slightest of the hints. 
 
-![System diagram](https://github.com/indr19/Action-Recognition/blob/main/W251%20System%20Design.png)
+![System diagram](https://github.com/indr19/Action_Recognition/blob/master/images/W251%20System%20Design.png)
 
 ## <a id="Model">3.0 The Model
 We use a “(2+1)D” convolutional block, which explicitly factorizes 3D convolution into two separate and successive operations, a 2D spatial convolution and a 1D temporal convolution.
@@ -67,11 +67,11 @@ In this section we discuss several spatiotemporal convolutional variants within 
 Let x denote the input clip of size 3×L× H ×W, where L is the number of frames in the clip, H and W are the frame height and width, and 3 refers to the RGB channels. 
 Let z<sub>i</sub> be the tensor computed by the i-th convolutional block in the residual network. In this work we consider only“vanilla” residual blocks (i.e., without bottlenecks), with each block consisting of two convolutional layers with a ReLU activation function after each layer. Then the output of the i-th residual block is given by
 
-![Cov_Res equation](https://github.com/indr19/Action-Recognition/blob/main/Conv%20Res.JPG)
+![Cov_Res equation](https://github.com/indr19/Action_Recognition/blob/master/images/Conv%20Res.JPG)
 
 where F(; θ<sub>i</sub>) implements the composition of two convolutions parameterized by weights θi and the application of the ReLU functions.
 
-![Model_architecture](https://github.com/indr19/Action-Recognition/blob/main/Capture.JPG)
+![Model_architecture](https://github.com/indr19/Action_Recognition/blob/master/images/Capture.JPG)
 
 - **Loss Fuction - CrossEntropyLoss**</br>
 
