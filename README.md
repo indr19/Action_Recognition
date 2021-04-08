@@ -113,9 +113,7 @@ The frames recieved from the camera are buffered on the Jetson via a sliding win
 
 ### 5.2 Metrics
 <img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/learning%20rate.svg" width="400"/>
-| ![lr.jpg](https://github.com/indr19/Action_Recognition/blob/master/metrics/learning%20rate.svg) | 
-|:--:| 
-| *Learning Rate* |
+![Learning_Rate](https://github.com/indr19/Action_Recognition/blob/master/metrics/learning%20rate.svg){:.image-caption}*LR*
   
 ## References
 Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset - https://arxiv.org/pdf/1705.07750.pdf </br>
