@@ -143,12 +143,9 @@ While vision/references/video_classification/train.py in the pytorch repo uses P
 ## <a id="Edge">6.0 Inferencing at the Edge
   
 ### 6.1 The Detector
-The detctor captures the live stream using the USG cam on the xavier.
+The detctor captures the live stream using the USG cam on the xavier and forwards it via the MQTT broker to the inference container.
 
-### 6.1 The Broker
-The detector forwards it via the MQTT broker to the inference container.
-
-### 6.2 The Inference Container
+### 6.2 The Inferencer
 The inference container runs the model that was trained in the cloud. On receipt of an feed, the container further preprocesses the image, feeds the processed image forward through the network and predicts the class of the video clip. We also provide a measure of accuracy (using the ground truth which is embedded in the file names passed through).
 Fetch the checkpoints from the system where you ran your training, e.g., if you ran your training in the cloud you would need to download the checkpoint named 'checkpoint.pth' file which will be in the location specified in --output-dir
 - Download only the test images 
