@@ -106,12 +106,21 @@ The jetson xavier was mounted on the dashboard of the car. The USB cam on the xa
 The frames recieved from the camera are buffered on the Jetson via a sliding window approach. Each frame initiates a new queue that keeps adding frames until a specified number of frames are collected. e.g. if we are going to do inference on a 3 second clip, assuming we are getting 15 fps from the usb cam on the jetson, we will have 45 frames in a queue, which will then be used for inference and then the frames will be discarded. Every second a new queue will be created, which means every 15 frames a new queue is created, at the end of 3 seconds we have 3 queues which the first queue having 45 frames, the 2nd one with 30 frames and the 3rd one with 15 frames. That is the maximum number of frames we will have in memory at a given time. As soon as a queue has 45 frames, we run the prediction and drop the frames.
 
 ## <a id="Train">5.0 Training the Model
+We built a Docker container to facilitate training in the cloud. The container is built on the base Pytorch containerand facilitates deploying instances to allow simultaneous training of models . The code in this repo is largely a reuse of the pytorch vision video classification code from here https://github.com/pytorch/vision.git
+While vision/references/video_classification/train.py in the pytorch repo uses PyAV to process the videos, here we do not use PyAV, we instead use a sequence of image files to create the training dataset. The downloader downloads videos from youtube as a collection of images and also prepares an annotation file.
 
-### 5.1 Results
+### 5.2 Steps
+- Prepare the training list, the ones we wish to download from YouTube and tag them appropriately
+* Each entry in the video list needs to be of the format:
+{'url':"\<url of the video>", 'category':'\<category>', 'start': \<start seconds>, 'end': \<end seconds>}
+* e.g., the list file should look like, start and end are time in seconds, category is the label which should be known
+[{'url':"\<url>", 'category': "\<cat>", 'start': 506, 'end': 508}, {'url':"\<url>", 'category': "\<cat>", 'start': 123, 'end': 127}]
+
+### 5.2 Results
 - Validation Accuracy 1 = 50.909 
 - Validation Accuracy 5 = 100.000
 
-### 5.2 Metrics
+### 5.3 Metrics
 <img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/lr.JPG" width="400"/>
 <img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/trin_acc.JPG" width="400"/>
 <img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/train_loss.JPG" width="400"/>
