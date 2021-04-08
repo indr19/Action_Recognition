@@ -41,8 +41,9 @@ In the current project ,we plan to detect 'unmindful prdestrains/'cyclists'.  On
 - Stream the live feed to an App on the phone or a web application and highlight when a potential action is detected
 
 ### 2.2 Assumptions
-1. The training videos are of high quality
-2. The training data is labelled correctly
+1. The training videos are of goos quality and resolution
+2. All videos are more than 8 secs
+3. The training data is labelled correctly
 
 ### 2.3 System Design
 We are using a R(2D+1) Model trained  We are using Jetson Xavier NX for our inference. Trained models are saved over to Jetson device and used for testing.The USB cam on the xavier will stream in the video feeds and the pre-trained model will predict if there is a 'pedestrian approaching' or a 'cyclist approaching' in the view of the camera.
