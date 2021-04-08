@@ -39,7 +39,7 @@
               {'url': "https://www.youtube.com/watch?v=n1xkO0_lSU0", 'category': 'no_pedestrian', 'start': 1794, 'end': 1804},
               {'url': "https://www.youtube.com/watch?v=n1xkO0_lSU0", 'category': 'no_pedestrian', 'start': 2055, 'end': 2065},
               {'url': "https://www.youtube.com/watch?v=n1xkO0_lSU0", 'category': 'no_pedestrian', 'start': 2500, 'end': 2510},
-              {'url': "https://www.youtube.com/watch?v=0RL8YjC3Fps", 'category': 'pedestrian', 'start': 043, 'end': 048},
+              {'url': "https://www.youtube.com/watch?v=0RL8YjC3Fps", 'category': 'pedestrian', 'start': 43, 'end': 48},
               {'url': "https://www.youtube.com/watch?v=0RL8YjC3Fps", 'category': 'pedestrian', 'start': 103, 'end': 107},
               {'url': "https://www.youtube.com/watch?v=0RL8YjC3Fps", 'category': 'pedestrian', 'start': 204, 'end': 207},
               {'url': "https://www.youtube.com/watch?v=0RL8YjC3Fps", 'category': 'pedestrian', 'start': 254, 'end': 257},
