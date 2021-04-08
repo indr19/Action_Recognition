@@ -45,19 +45,17 @@ In the current project ,we plan to detect 'unmindful prdestrains/'cyclists'.  On
 2. All videos are more than 8 secs
 3. The training data is labelled correctly
 
-### 2.3 System Design
+### 2.3 Components
 We are using a R(2D+1) Model trained  We are using Jetson Xavier NX for our inference. Trained models are saved over to Jetson device and used for testing.The USB cam on the xavier will stream in the video feeds and the pre-trained model will predict if there is a 'pedestrian approaching' or a 'cyclist approaching' in the view of the camera.
 Note: this is different than just detecting if there is a pedestrian in the frame, while driving on the streets, there will be predestrians in the view, our approach here is to detect when the pedestrain is dangerously close to the vehicle or moving in a way that could potenially mean them intercepting the path of the moving vehicle. It's easy for humans to detect such situations since we have plethora of experiences detecting when a situation may develop with the slightest of the hints. 
 
 1. The Cloud
-  * Specifications
     * NVIDIA Deep Learning AMI v20.11.0-46a68101-e56b-41cd-8e32-631ac6e5d02b
     * g4dn.2xlarge
-  
-  * Configure the Virtual m/c
-    * aws ec2 create-security-group --group-name hw09 --description "FinalProj" --vpc-id vpc-id
-    * aws ec2 authorize-security-group-ingress --group-id security_group_id --protocol tcp --port 1-65535 --cidr 0.0.0.0/0
-    * aws ec2 run-instances --image-id ami-05637fb3a5183e0d0 --instance-type g4dn.2xlarge --security-group-ids sg-048b5ebd6f504557d --associate-public-ip-address --key-name DeepKey --count 1
+    * Configure the Virtual m/c
+      * aws ec2 create-security-group --group-name hw09 --description "FinalProj" --vpc-id vpc-id
+      * aws ec2 authorize-security-group-ingress --group-id security_group_id --protocol tcp --port 1-65535 --cidr 0.0.0.0/0
+      * aws ec2 run-instances --image-id ami-05637fb3a5183e0d0 --instance-type g4dn.2xlarge --security-group-ids sg-048b5ebd6f504557d --associate-public-ip-address --key-name DeepKey --count 1
 
 2. The Data
 - Kinetics400 dataset, a benchmark dataset for human-action recognition. The accuracy is reported on the traditional validation split.
@@ -66,6 +64,7 @@ Note: this is different than just detecting if there is a pedestrian in the fram
 3. The Edge Device
 - Jetson Xavier NX
 
+### 2.4 System Design
 ![System diagram](https://github.com/indr19/Action_Recognition/blob/master/images/W251%20System%20Design.png)
 
 ## <a id="Model">3.0 The Model
