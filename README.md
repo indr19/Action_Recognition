@@ -55,7 +55,7 @@ Note: this is different than just detecting if there is a pedestrian in the fram
     * Configure the Virtual m/c
       * aws ec2 create-security-group --group-name hw09 --description "FinalProj" --vpc-id vpc-id
       * aws ec2 authorize-security-group-ingress --group-id security_group_id --protocol tcp --port 1-65535 --cidr 0.0.0.0/0
-      * aws ec2 run-instances --image-id ami-05637fb3a5183e0d0 --instance-type g4dn.2xlarge --security-group-ids sg-048b5ebd6f504557d --associate-public-ip-address --key-name DeepKey --count 1
+      * aws ec2 run-instances --image-id ami-05637fb3a5183e0d0 --instance-type g4dn.2xlarge --security-group-ids security_group_id --associate-public-ip-address --key-name key --count 1
 
 2. The Data
 - Kinetics400 dataset, a benchmark dataset for human-action recognition. The accuracy is reported on the traditional validation split.
