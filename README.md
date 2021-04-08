@@ -115,7 +115,7 @@ The frames recieved from the camera are buffered on the Jetson via a sliding win
 <img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/lr.JPG" width="400"/>
 <img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/trin_acc.JPG" width="400"/>
 <img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/train_loss.JPG" width="400"/>
-<img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/validation%20accuracy.svg" width="400"/>
+<img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/val_acc.JPG" width="400"/>
 
 ## References
 Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset - https://arxiv.org/pdf/1705.07750.pdf </br>
