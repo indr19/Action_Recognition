@@ -106,7 +106,17 @@ The jetson xavier was mounted on the dashboard of the car. The USB cam on the xa
 The frames recieved from the camera are buffered on the Jetson via a sliding window approach. Each frame initiates a new queue that keeps adding frames until a specified number of frames are collected. e.g. if we are going to do inference on a 3 second clip, assuming we are getting 15 fps from the usb cam on the jetson, we will have 45 frames in a queue, which will then be used for inference and then the frames will be discarded. Every second a new queue will be created, which means every 15 frames a new queue is created, at the end of 3 seconds we have 3 queues which the first queue having 45 frames, the 2nd one with 30 frames and the 3rd one with 15 frames. That is the maximum number of frames we will have in memory at a given time. As soon as a queue has 45 frames, we run the prediction and drop the frames.
 
 ## <a id="Train">5.0 Training the Model
-  
+
+### 5.1 Results
+- Validation Accuracy 1 = 50.909 
+- Validation Accuracy 5 = 100.000
+
+### 5.2 Metrics
+<img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/learning%20rate.svg" width="400"/> Learning Rate
+<img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/training%20accuracy.svg" width="400"/>
+<img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/training%20loss.svg" width="400"/>
+<img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/validation%20accuracy.svg" width="400"/>
+
 ## References
 Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset - https://arxiv.org/pdf/1705.07750.pdf </br>
 A Closer Look at Spatiotemporal Convolutions for Action Recognition - https://arxiv.org/pdf/1711.11248v3.pdf </br>
