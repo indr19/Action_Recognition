@@ -85,9 +85,10 @@ def evaluate(model, epoch, criterion, data_loader, device, writer):
             # could have been padded in distributed setup
             batch_size = video.shape[0]
             running_accuracy += acc1.item()
-            if cntr % 10 == 9:  # average loss over the accumulated mini-batch
+            if cntr % 5 == 1:  # average loss over the accumulated mini-batch
+                print(' Adding Val accuracy')
                 writer.add_scalar('validation accuracy',
-                                  running_accuracy / 10,
+                                  running_accuracy / 5,
                                   epoch * len(data_loader) + cntr)
                 running_accuracy = 0.0
             cntr += 1
