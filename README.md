@@ -110,11 +110,11 @@ We built a Docker container to facilitate training in the cloud. The container i
 While vision/references/video_classification/train.py in the pytorch repo uses PyAV to process the videos, here we do not use PyAV, we instead use a sequence of image files to create the training dataset. The downloader downloads videos from youtube as a collection of images and also prepares an annotation file.
 
 ### 5.2 Steps
-- Prepare the training list, the ones we wish to download from YouTube and tag them appropriately
-* Each entry in the video list needs to be of the format:
-{'url':"\<url of the video>", 'category':'\<category>', 'start': \<start seconds>, 'end': \<end seconds>}
-* e.g., the list file should look like, start and end are time in seconds, category is the label which should be known
-[{'url':"\<url>", 'category': "\<cat>", 'start': 506, 'end': 508}, {'url':"\<url>", 'category': "\<cat>", 'start': 123, 'end': 127}]
+* Prepare the training list, the ones we wish to download from YouTube and tag them appropriately
+  * Each entry in the video list needs to be of the format:
+  {'url':"\<url of the video>", 'category':'\<category>', 'start': \<start seconds>, 'end': \<end seconds>}
+  * e.g., the list file should look like, start and end are time in seconds, category is the label which should be known
+  [{'url':"\<url>", 'category': "\<cat>", 'start': 506, 'end': 508}, {'url':"\<url>", 'category': "\<cat>", 'start': 123, 'end': 127}]
 
 ### 5.2 Results
 - Validation Accuracy 1 = 50.909 
