@@ -58,11 +58,11 @@ Note: this is different than just detecting if there is a pedestrian in the fram
       * aws ec2 run-instances --image-id ami-05637fb3a5183e0d0 --instance-type g4dn.2xlarge --security-group-ids security_group_id --associate-public-ip-address --key-name key --count 1
 
 2. The Data
-- Kinetics400 dataset, a benchmark dataset for human-action recognition. The accuracy is reported on the traditional validation split.
-- Labelled data from Youtube
+    * Kinetics400 dataset, a benchmark dataset for human-action recognition. The accuracy is reported on the traditional validation split.
+    * Labelled data from Youtube
 
 3. The Edge Device
-- Jetson Xavier NX
+    * Jetson Xavier NX
 
 ### 2.4 System Design
 ![System diagram](https://github.com/indr19/Action_Recognition/blob/master/images/W251%20System%20Design.png)
@@ -155,6 +155,8 @@ While vision/references/video_classification/train.py in the pytorch repo uses P
 <img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/val_acc.JPG" width="400"/>
 
 ## <a id="Edge">6.0 Inferencing at the Edge
+Download the docker image that will be used to run the inference on the jetson
+  * docker pull mayukhd/jetson_4_1:cp36torch1.7
   
 ### 6.1 The Detector
 The detctor captures the live stream using the USG cam on the xavier and forwards it to the inferencer. Due to limitation of the infrastructure, we are generating the test feed synthetically instead of capturing it.
