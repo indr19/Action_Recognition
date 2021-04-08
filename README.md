@@ -112,7 +112,7 @@ The frames recieved from the camera are buffered on the Jetson via a sliding win
 - Validation Accuracy 5 = 100.000
 
 ### 5.2 Metrics
-<img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/learning%20rate.svg" width="100" height="100">
+<img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/learning%20rate.svg" width="500" height="500">
 
   
 ## References
