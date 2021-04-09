@@ -166,7 +166,7 @@ Download the docker image that will be used to run the inference on the jetson
 ### 6.1 The Detector
 The detctor captures the live stream using the USG cam on the xavier and forwards it to the inferencer. Due to limitation of the infrastructure, we are generating the test feed synthetically instead of capturing it live.
 * Download the test images 
-  * python3 download.py --val_video_list=<full path to the test list> --dataset_valdir=<full path to where the image sequences>
+  * python3 download.py --val_video_list= full path to the test list --dataset_valdir= full path to where the image sequences
   
 ### 6.2 The Inferencer
 The inference container runs the model that was trained in the cloud. On receipt of an feed, the container further preprocesses the image, feeds the processed image forward through the network and predicts the class of the video clip. We also provide a measure of accuracy (using the ground truth which is embedded in the file names passed through).
