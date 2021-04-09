@@ -148,7 +148,7 @@ While vision/references/video_classification/train.py in the pytorch repo uses P
 ### 5.3 The Saver
 * Saves the model checkpoints
 * The checkpoint file is scped to the edge device for inferencing
-  * scp -i "DeepKey.pem" -r ubuntu@ec2-18-217-60-239.us-east-2.compute.amazonaws.com:/home/ubuntu/Action_Recognition/torchvideoclf/checkpoint /.* 
+  * scp -i key -r user@aws public dns :/home/ubuntu/Action_Recognition/torchvideoclf/checkpoint /.* 
 
 ### 5.3 Results
 - Validation Accuracy  = 50.909 
