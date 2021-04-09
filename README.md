@@ -145,8 +145,7 @@ While vision/references/video_classification/train.py in the pytorch repo uses P
   * goto https://<url>:6006 to view the training metrics
 
 ### 5.2 Results
-- Validation Accuracy 1 = 50.909 
-- Validation Accuracy 5 = 100.000
+- Validation Accuracy  = 50.909 
 
 ### 5.3 Metrics
 <img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/lr.JPG" width="400"/>
@@ -159,7 +158,7 @@ Download the docker image that will be used to run the inference on the jetson
   * docker pull mayukhd/jetson_4_1:cp36torch1.7
   
 ### 6.1 The Detector
-The detctor captures the live stream using the USG cam on the xavier and forwards it to the inferencer. Due to limitation of the infrastructure, we are generating the test feed synthetically instead of capturing it.
+The detctor captures the live stream using the USG cam on the xavier and forwards it to the inferencer. Due to limitation of the infrastructure, we are generating the test feed synthetically instead of capturing it live.
 * Download the test images 
   * python3 download.py --val_video_list=<full path to the test list> --dataset_valdir=<full path to where the image sequences>
   
@@ -169,6 +168,11 @@ Fetch the checkpoints from the system where you ran your training, e.g., if you 
 
 * Run test 
   * python3 test.py --test-dir=\<test image seq. dir> --resume-dir=\<full path to checkpoint file>
+  
+* Test Results
+  * Test Accuracy = 68.000 
+
+### 6.3 The Alarming System 
 
 ## References
 Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset - https://arxiv.org/pdf/1705.07750.pdf </br>
