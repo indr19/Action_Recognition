@@ -173,7 +173,7 @@ The inference container runs the model that was trained in the cloud. On receipt
 Fetch the checkpoints from the system where you ran your training, e.g., if you ran your training in the cloud you would need to download the checkpoint named 'checkpoint.pth' file which will be in the location specified in --output-dir
 
 * Run test 
-  * python3 test.py --test-dir=\<test image seq. dir> --resume-dir=\<full path to checkpoint file>
+  * python3 test.py --test-dir= <test image seq. dir> --resume-dir= <full path to checkpoint file>
   
 * Test Results
   * Test Accuracy = 68.000 
