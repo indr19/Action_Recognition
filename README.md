@@ -168,6 +168,8 @@ The feed detctor captures the live stream using the USG cam on the xavier and fo
 
 * Download the test images 
   * python3 download.py --val_video_list= full path to the test list --dataset_valdir= full path to where the image sequences
+* Setup Jetson for inststructions
+  *  For setting up jetson please refer to the instructions[Jetson_Instructions](https://github.com/indr19/Action_Recognition/blob/master/README_Jetson_Setup.md)
   
 ### 6.2 The Inferencer
 The inference container runs the model that was trained in the cloud. On receipt of an feed, the container further preprocesses the image, feeds the processed image forward through the network and predicts the class of the video clip. We also provide a measure of accuracy (using the ground truth which is embedded in the file names passed through).
