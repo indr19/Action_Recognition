@@ -1,12 +1,4 @@
-# Action Recognition from video
-
-### Abstract
-
-### Problem solved
-
-### Methodology
-
-### Steps
+### Steps to setup Jetson for Action Recognition
 
 The jetson xavier will be mounted on the dash of the car. The USB cam on the xavier will stream in the video feeds and the pre-trained model will predict if there is a 'pedestrian approaching' or a 'cyclist approaching' in the view of the camera. Note: this is different than just detecting if there is a pedestrian in the frame, while driving on the streets, there will be predestrians in the view, our approach here is to detect when the pedestrain is dangerously close to the vehicle or moving in a way that could potenially mean them intercepting the path of the moving vehicle. It's easy for humans to detect such situations since we have plethora of experiences detecting when a situation may develop with the slightest of the hints. Our attempt is to teach the model detect such situations. 
 This model may have applications in self driving cars, however, when trained on other types of actions such as detecting the type of visitors walking in into a gated community and classifiying the objective of the visitor such as 'food delivery', 'guest', 'courier', 'housekeeping', 'residents' etc. helps automatic cataloging of entries that are today mostly manual or not present at all. This also has applications in the areas of retail where we can potentially detect customers picking up items from shelves, returning them to shelves, approaching the billing counter, window shopping, showing interest in products in a particular aisle etc.
