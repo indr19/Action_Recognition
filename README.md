@@ -167,13 +167,15 @@ While vision/references/video_classification/train.py in the pytorch repo uses P
 <img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/train_loss.JPG" width="400"/>
 <img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/val_acc.JPG" width="400"/>
 
+*[Return to contents](#Contents)*
+
 ## <a id="Edge">6.0 Inferencing at the Edge
 Download the docker image that will be used to run the inference on the jetson
   * docker pull mayukhd/jetson_4_1:cp36torch1.7
     * Remember to run the container on Jetson with --device=/dev/video0 flag
     * Change the following in the index.html file to match your Jetsons IP
 
-*[Return to contents](#Contents)*
+
 
 ### 6.1 The Detector
 The feed detctor captures the live stream using the USG cam on the xavier and forwards it to the inferencer. The frames recieved from the camera are buffered on the Jetson via a sliding window approach. Each frame initiates a new queue that keeps adding frames until a specified number of frames are collected. e.g. if we are going to do inference on a 3 second clip, assuming we are getting 15 fps from the usb cam on the jetson, we will have 45 frames in a queue, which will then be used for inference and then the frames will be discarded. Every second a new queue will be created, which means every 15 frames a new queue is created, at the end of 3 seconds we have 3 queues which the first queue having 45 frames, the 2nd one with 30 frames and the 3rd one with 15 frames. That is the maximum number of frames we will have in memory at a given time. As soon as a queue has 45 frames, we run the prediction and drop the frames.
