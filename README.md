@@ -73,6 +73,8 @@ R(2+1)D are ResNets with (2+1)D convolutions. For interpretability, residual con
 The first advantage is an additional nonlinear rectification between these two operations. This effectively doubles the number of nonlinearities compared to a network using full 3D convolutions for the same number of parameters, thus rendering the model capable of representing more complex functions.
 The second potential benefit is that the decomposition facilitates the optimization, yielding in practice both a lower training loss and a lower testing loss.
 
+*[Return to contents](#Contents)*
+
 ### 3.1 Model Architecture 
 - Convolutional residual blocks for video
 In this section we discuss several spatiotemporal convolutional variants within the framework of residual learning.
@@ -124,6 +126,9 @@ The frames recieved from the camera are buffered on the Jetson via a sliding win
 We built a Docker container to facilitate training in the cloud. The container is built on the base Pytorch containerand facilitates deploying instances to allow simultaneous training of models . The code in this repo is largely a reuse of the pytorch vision video classification code from here https://github.com/pytorch/vision.git
 While vision/references/video_classification/train.py in the pytorch repo uses PyAV to process the videos, here we do not use PyAV, we instead use a sequence of image files to create the training dataset. The downloader downloads videos from youtube as a collection of images and also prepares an annotation file.
 
+
+*[Return to contents](#Contents)*
+
 ### 5.1 The Preprocessor
 * Prepare the *training list*, the ones we wish to download from YouTube and tag them appropriately
   * Each entry in the video list needs to be of the format:
@@ -164,7 +169,9 @@ Download the docker image that will be used to run the inference on the jetson
   * docker pull mayukhd/jetson_4_1:cp36torch1.7
     * Remember to run the container on Jetson with --device=/dev/video0 flag
     * Change the following in the index.html file to match your Jetsons IP
-  
+
+*[Return to contents](#Contents)*
+
 ### 6.1 The Detector
 The feed detctor captures the live stream using the USG cam on the xavier and forwards it to the inferencer. The frames recieved from the camera are buffered on the Jetson via a sliding window approach. Each frame initiates a new queue that keeps adding frames until a specified number of frames are collected. e.g. if we are going to do inference on a 3 second clip, assuming we are getting 15 fps from the usb cam on the jetson, we will have 45 frames in a queue, which will then be used for inference and then the frames will be discarded. Every second a new queue will be created, which means every 15 frames a new queue is created, at the end of 3 seconds we have 3 queues which the first queue having 45 frames, the 2nd one with 30 frames and the 3rd one with 15 frames. That is the maximum number of frames we will have in memory at a given time. As soon as a queue has 45 frames, we run the prediction and drop the frames.
 
@@ -211,6 +218,9 @@ sudo docker run -it --rm --runtime=nvidia --device=/dev/video0 -v ~/w251/finalpr
 * Get prediction on your ios phone
 *   Navigate to the http://<jetson ip>:8080/ on your browser
 *   Open debug view in your browser, you should see the console printing essages that it is receiving communication from the server via sockets in an async manner.
+
+
+*[Return to contents](#Contents)*
 
 ## References
 Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset - https://arxiv.org/pdf/1705.07750.pdf </br>
