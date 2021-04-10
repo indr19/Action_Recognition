@@ -169,7 +169,7 @@ The feed detctor captures the live stream using the USG cam on the xavier and fo
 * Download the test images 
   * python3 download.py --val_video_list= full path to the test list --dataset_valdir= full path to where the image sequences
 * Setup Jetson for inststructions
-  *  For setting up jetson please refer to the instructions[Jetson_Instructions](https://github.com/indr19/Action_Recognition/blob/master/README_Jetson_Setup.md)
+  *  For setting up jetson please refer to the [Jetson Setup_Instructions](https://github.com/indr19/Action_Recognition/blob/master/README_Jetson_Setup.md)
   
 ### 6.2 The Inferencer
 The inference container runs the model that was trained in the cloud. On receipt of an feed, the container further preprocesses the image, feeds the processed image forward through the network and predicts the class of the video clip. We also provide a measure of accuracy (using the ground truth which is embedded in the file names passed through).
@@ -182,10 +182,34 @@ Fetch the checkpoints from the system where you ran your training, e.g., if you 
   * Test Accuracy = 68.000 
 
 ### 6.3 The Alarm Generator
-Detection from live feed
 
+* Ensure the following before running the app
+  * Remember to run the container on Jetson with --device=/dev/video0 flag
+  * Change the following in the index.html file to match your Jetsons IP <img src="http://jetson_ip:8080/videostream" width="30%">
+  * Ensure you have the serial cable plugged in to the Jetson and the screen tool is used to open a session to the Jetson.
+  * Using the Ubuntu GUI (use VNC Viewer), create a new Wifi connection on the Xavier of mode = Hotspot
+  * Connect the xavier to this new Wifi network
+  * Connect your phone/laptop to this Wifi network
+  * Both the phone and the xavier will get a 10.42.* address when on this network. You can use this IP to talk to the xavier from the phone.
 
-### 6.4 The Mobile Alert App
+* Stream video from Jetson to a web browser
+Read the frame from the video feed of the camera encode the image in JPEG format convert the encoded image to bytearray format send the bytearray as image/jpeg content type in the http response Content-Type: image/jpeg bytearray(jpeg_encoded_image)
+
+yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n')
+
+* Get the docker image to use on the Jetson, and run the container with access to the camera
+sudo docker run -it --rm --runtime=nvidia --device=/dev/video0 -v ~/w251/finalproject/app:/app -p 8888:8888 mayukhd/jetson_4_1:cp36torch1.7
+
+* Install the dependencies 
+  * pip3 install -r requirements.txt
+  * pip3 install -r requirements_dev_macos.txt
+
+* Run the app
+  * python3 livedetect.py --resume-dir=checkpoint.pth
+  
+* Get prediction on your ios phone
+*   Navigate to the http://<jetson ip>:8080/ on your browser
+*   Open debug view in your browser, you should see the console printing essages that it is receiving communication from the server via sockets in an async manner.
 
 ## References
 Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset - https://arxiv.org/pdf/1705.07750.pdf </br>
