@@ -148,7 +148,7 @@ While vision/references/video_classification/train.py in the pytorch repo uses P
 ### 5.3 The Saver
 * Saves the model checkpoints
 * The checkpoint file is scped to the edge device for inferencing
-  * scp -i "DeepKey.pem" -r ubuntu@ec2-18-217-60-239.us-east-2.compute.amazonaws.com:/home/ubuntu/Action_Recognition/torchvideoclf/checkpoint /.* 
+  * scp -i key -r user@aws public dns :/home/ubuntu/Action_Recognition/torchvideoclf/checkpoint /.* 
 
 ### 5.3 Results
 - Validation Accuracy  = 50.909 
@@ -166,14 +166,14 @@ Download the docker image that will be used to run the inference on the jetson
 ### 6.1 The Detector
 The detctor captures the live stream using the USG cam on the xavier and forwards it to the inferencer. Due to limitation of the infrastructure, we are generating the test feed synthetically instead of capturing it live.
 * Download the test images 
-  * python3 download.py --val_video_list=<full path to the test list> --dataset_valdir=<full path to where the image sequences>
+  * python3 download.py --val_video_list= full path to the test list --dataset_valdir= full path to where the image sequences
   
 ### 6.2 The Inferencer
 The inference container runs the model that was trained in the cloud. On receipt of an feed, the container further preprocesses the image, feeds the processed image forward through the network and predicts the class of the video clip. We also provide a measure of accuracy (using the ground truth which is embedded in the file names passed through).
 Fetch the checkpoints from the system where you ran your training, e.g., if you ran your training in the cloud you would need to download the checkpoint named 'checkpoint.pth' file which will be in the location specified in --output-dir
 
 * Run test 
-  * python3 test.py --test-dir=\<test image seq. dir> --resume-dir=\<full path to checkpoint file>
+  * python3 test.py --test-dir= test image seq. dir --resume-dir= full path to checkpoint file
   
 * Test Results
   * Test Accuracy = 68.000 
