@@ -5,6 +5,7 @@ import torch
 import torch.distributed as dist
 
 
+
 class SmoothedValue(object):
     """Track a series of values and provide access to smoothed values over a
     window or the global series average.
@@ -150,7 +151,9 @@ def accuracy(output, target, topk=(1,)):
         correct = pred.eq(target[None])
 
         res = []
+
         for k in topk:
             correct_k = correct[:k].flatten().sum(dtype=torch.float32)
             res.append(correct_k * (100.0 / batch_size))
+
         return res
