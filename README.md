@@ -110,6 +110,9 @@ decrease lr by a factor of lr-gamma=0,1</br>
 number of warmup epochs=10</br>
 number of classes: 400</br>
 
+
+*[Return to contents](#Contents)*
+
 ## <a id="Imgen">4.0 Generating Training Data
   
 ## 4.1 Generating train data
