@@ -205,8 +205,7 @@ Fetch the checkpoints from the system where you ran your training, e.g., if you 
 
 * Stream video from Jetson to a web browser
 Read the frame from the video feed of the camera encode the image in JPEG format convert the encoded image to bytearray format send the bytearray as image/jpeg content type in the http response Content-Type: image/jpeg bytearray(jpeg_encoded_image)
-
-yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n')
+  * yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n')
 
 * Get the docker image to use on the Jetson, and run the container with access to the camera
 sudo docker run -it --rm --runtime=nvidia --device=/dev/video0 -v ~/w251/finalproject/app:/app -p 8888:8888 mayukhd/jetson_4_1:cp36torch1.7
