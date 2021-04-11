@@ -227,6 +227,12 @@ sudo docker run -it --rm --runtime=nvidia --device=/dev/video0 -v ~/w251/finalpr
 *[Return to contents](#Contents)*
 
 ## References
+Base Code from pytorch - https://github.com/pytorch/vision/tree/master/references/video_classification
 Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset - https://arxiv.org/pdf/1705.07750.pdf </br>
 A Closer Look at Spatiotemporal Convolutions for Action Recognition - https://arxiv.org/pdf/1711.11248v3.pdf </br>
 Video Classification Using 3D ResNet - https://github.com/kenshohara/video-classification-3d-cnn-pytorch </br>
+Awesome Action Recognition - https://github.com/jinwchoi/awesome-action-recognition
+Deep Learning Models for Human Activity Recognition - https://machinelearningmastery.com/deep-learning-models-for-human-activity-recognition/
+Pedestrian and Cyclist Detection and Intent Estimation for Autonomous Vehicles - https://www.mdpi.com/2076-3417/9/11/2335/htm#B48-applsci-09-02335
+Deep Learning Architectures for Action Recognition - https://towardsdatascience.com/deep-learning-architectures-for-action-recognition-83e5061ddf90
+Literature Survey: Human Action Recognition - https://towardsdatascience.com/literature-survey-human-action-recognition-cc7c3818a99a
