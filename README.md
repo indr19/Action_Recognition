@@ -108,7 +108,7 @@ weight decay = 1e-4**</br>
 decrease lr on milestones=[20, 30, 40]</br>
 decrease lr by a factor of lr-gamma=0,1</br>
 number of warmup epochs=10</br>
-number of classes: 400</br>
+number of classes: 3</br>
 
 
 *[Return to contents](#Contents)*
