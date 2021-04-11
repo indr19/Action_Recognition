@@ -231,6 +231,7 @@ Base Code from pytorch - https://github.com/pytorch/vision/tree/master/reference
 Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset - https://arxiv.org/pdf/1705.07750.pdf </br>
 A Closer Look at Spatiotemporal Convolutions for Action Recognition - https://arxiv.org/pdf/1711.11248v3.pdf </br>
 Video Classification Using 3D ResNet - https://github.com/kenshohara/video-classification-3d-cnn-pytorch </br>
+Large-scale Video Classification with Convolutional Neural Networks - https://www.cv-foundation.org/openaccess/content_cvpr_2014/papers/Karpathy_Large-scale_Video_Classification_2014_CVPR_paper.pdf 
 Awesome Action Recognition - https://github.com/jinwchoi/awesome-action-recognition
 Deep Learning Models for Human Activity Recognition - https://machinelearningmastery.com/deep-learning-models-for-human-activity-recognition/
 Pedestrian and Cyclist Detection and Intent Estimation for Autonomous Vehicles - https://www.mdpi.com/2076-3417/9/11/2335/htm#B48-applsci-09-02335
