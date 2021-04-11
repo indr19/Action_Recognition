@@ -228,6 +228,7 @@ sudo docker run -it --rm --runtime=nvidia --device=/dev/video0 -v ~/w251/finalpr
 
 ## References
 Base Code from pytorch - https://github.com/pytorch/vision/tree/master/references/video_classification </br>
+Kinetics Dataset - https://deepmind.com/research/open-source/kinetics</br>
 Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset - https://arxiv.org/pdf/1705.07750.pdf </br>
 A Closer Look at Spatiotemporal Convolutions for Action Recognition - https://arxiv.org/pdf/1711.11248v3.pdf </br>
 Video Classification Using 3D ResNet - https://github.com/kenshohara/video-classification-3d-cnn-pytorch </br>
