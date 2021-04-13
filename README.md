@@ -26,7 +26,7 @@
 Human action recognition is a standard Computer Vision problem and has been well studied. The fundamental goal is to analyze a video to identify the actions taking place in the video. Essentially a video has a spatial aspect to it ie. the individual frames and a temporal aspect ie. the ordering of the frames. Some actions (eg. standing, running, etc.) can probably be identified by using just a single frame but for more complex actions(eg. walking vs running, bending vs falling) might require more than 1 frame’s information to identify it correctly. Local temporal information plays an important role in differentiating between such actions. Moreover, for some use cases, local temporal information isn’t sufficient and you might need long duration temporal information to correctly identify the action or classify the video.Deep learning approaches have empirically demonstrated remarkable success in learning image representations for tasks like object recognition, image captioning, and semantic segmentation. Convolutional neural networks have enabled us to efficiently capture the hypothesis of spatial locality of data structure in images through parameter sharing convolutions, and local invariance-building max-pooling neurons. In this project, we would like to explore the impact of deep learning techniques on video tasks, specifically action recognition.
 
 ### 1.2 Evolution of Action Recognition
-[Evolution_History!](https://github.com/indr19/Action_Recognition/blob/master/images/Evolution%20History.JPG)
+![Evolution_History](https://github.com/indr19/Action_Recognition/blob/master/images/Evolution%20History.JPG)
 
 **2014**</br>
 In 2014, two important breakthrough papers gave deep learning the start in video recognition. Large-scale Video Classification with Convolutional Neural Networks by Karpathy et. al. and Two-Stream Convolutional Networks for Action Recognition in Videos by Simonyan and Zisserman gave rise to the popularity of single stream and two stream networks in action recognition.
@@ -47,10 +47,19 @@ The focus shifted back to two stream networks. In Convolutional Two-Stream Netwo
  Du Tran et. al. propose channel separated convolution networks (CSN) for the task of action recognition in Video Classification with Channel-Separated Convolutional Networks.The researchers build on the ideas of group convolution and depth-wise convolution that received great success in Xception and MobileNet models.Fundamentally, group convolutions introduce regularisation and less computations by not being fully connected. This network effectively captures spatial and spatiotemporal features in their own distinct layers. The channel separated convolution blocks learns these features distinctly but combines them locally at all stages of convolution. This alleviates the need to perform slow fusion of temporal and spatial two stream networks. 
 
 
-### 1.2 Intent of this Project
-We want to explore the possibility of applying deep learning to the task of human action recognition and predict the next actions. We wanted to address the following questions through our project
-- In space of autonomous vehichles, this can be used to classifiy the intent of pdestriants cyclists .
-- In reatil space , the learning can be transferred to classify the intent of the customer (e.g If the person is a prospective buyer or a shop lifter)
+### 1.3 Intent of this Project
+Our project goal is to
+- Detect 'unmindful pedestrians/'cyclists' on the road
+- Save the video clip where the action was detected
+- Stream the live feed to an App on the phone or a web application 
+- Sound an alarm when a potential action is detected
+
+This might help solve problems like but not limited to
+- Road accidents in self driving cars
+- Shoplifting 
+- Human translation
+
+
 
 *[Return to contents](#Contents)*
 ## <a id="System_Overview">2.0 System Overview
