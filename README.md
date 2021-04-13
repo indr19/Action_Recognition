@@ -47,7 +47,10 @@ The focus shifted back to two stream networks. In Convolutional Two-Stream Netwo
  Du Tran et. al. propose channel separated convolution networks (CSN) for the task of action recognition in Video Classification with Channel-Separated Convolutional Networks.The researchers build on the ideas of group convolution and depth-wise convolution that received great success in Xception and MobileNet models.Fundamentally, group convolutions introduce regularisation and less computations by not being fully connected. This network effectively captures spatial and spatiotemporal features in their own distinct layers. The channel separated convolution blocks learns these features distinctly but combines them locally at all stages of convolution. This alleviates the need to perform slow fusion of temporal and spatial two stream networks. 
 
 
-### 1.3 Intent of this Project
+*[Return to contents](#Contents)*
+## <a id="System_Overview">2.0 System Overview
+  
+### 2.1 Use Case
 Our project goal is to
 - Detect 'unmindful pedestrians/'cyclists' on the road
 - Save the video clip where the action was detected
@@ -59,26 +62,43 @@ This might help solve problems like but not limited to
 - Shoplifting 
 - Human translation
 
-
-
-*[Return to contents](#Contents)*
-## <a id="System_Overview">2.0 System Overview
-  
-### 2.1 Use Case
-In the current project ,we plan to detect 'unmindful prdestrains/'cyclists'.  On prediction of the next motion we have plan to
-- Sound an alarm (can be done on the xavier itself, but we would need a buzzer etc.)
-- Save the video clip where the action was detected
-- Stream the live feed to an App on the phone or a web application and highlight when a potential action is detected
-
 ### 2.2 Assumptions
 - The training videos are of goos quality and resolution
 - All videos are more than 8 secs
 - The training data is labelled correctly
 
 ### 2.3 Components
+We have adopted our model architecture from the accademic paper https://arxiv.org/pdf/1711.11248v3.pdf </br>
+Our choice of model for this usecase is the R(2D+1) Model.A “(2+1)D” convolutional block, which explicitly factorizes 3D convolution into two separate and successive operations,
+a 2D spatial convolution and a 1D temporal convolution.</br>
+The first advantage is an additional nonlinear rectification between these two operations. This effectively doubles the number of nonlinearities compared to a network using full 3D convolutions for the same number of parameters, thus rendering the model capable of representing more complex functions.The second potential benefit is that the decomposition facilitates the optimization, yielding in practice both a lower training loss and a lower testing loss.Compared to full 3D filters where appearance the (2+1)D blocks (with factorized spatial and temporal components) are easier to optimize.
+
 We are using a R(2D+1) Model trained  We are using Jetson Xavier NX for our inference. Trained models are saved over to Jetson device and used for testing.The USB cam on the xavier will stream in the video feeds and the pre-trained model will predict if there is a 'pedestrian approaching' or a 'cyclist approaching' in the view of the camera.
 Note: this is different than just detecting if there is a pedestrian in the frame, while driving on the streets, there will be predestrians in the view, our approach here is to detect when the pedestrain is dangerously close to the vehicle or moving in a way that could potenially mean them intercepting the path of the moving vehicle. It's easy for humans to detect such situations since we have plethora of experiences detecting when a situation may develop with the slightest of the hints. 
 
+(2+1)D decomposition offers two advantages. First, despite not changing the number of parameters, it doubles the number of nonlinearities in the network due to the additional ReLU between the 2D and 1D convolution in each block. Increasing the number of nonlinearities increases the complexity of functions that can be represented, as also noted in VGG networks [30] which approximate the effect of a big filter by applying multiple smaller filters with additional nonlinearities in between. The second benefit is that forcing the 3D convolution into separate spatial and temporal components renders the optimization easier. This is manifested in lower training error compared to 3D convolutional networks of the same capacity
+### 2.4 System Design
+![System diagram](https://github.com/indr19/Action_Recognition/blob/master/images/W251%20System%20Design_Final.jpg)
+
+## <a id="Model">3.0 The Model
+We use a “(2+1)D” convolutional block, which explicitly factorizes 3D convolution into two separate and successive operations, a 2D spatial convolution and a 1D temporal convolution.
+R(2+1)D are ResNets with (2+1)D convolutions. For interpretability, residual connections are omitted.
+The first advantage is an additional nonlinear rectification between these two operations. This effectively doubles the number of nonlinearities compared to a network using full 3D convolutions for the same number of parameters, thus rendering the model capable of representing more complex functions.
+The second potential benefit is that the decomposition facilitates the optimization, yielding in practice both a lower training loss and a lower testing loss.
+  
+- Convolutional residual blocks for video
+In this section we discuss several spatiotemporal convolutional variants within the framework of residual learning.
+Let x denote the input clip of size 3×L× H ×W, where L is the number of frames in the clip, H and W are the frame height and width, and 3 refers to the RGB channels. 
+Let z<sub>i</sub> be the tensor computed by the i-th convolutional block in the residual network. In this work we consider only“vanilla” residual blocks (i.e., without bottlenecks), with each block consisting of two convolutional layers with a ReLU activation function after each layer. Then the output of the i-th residual block is given by
+
+![Cov_Res equation](https://github.com/indr19/Action_Recognition/blob/master/images/Conv%20Res.JPG)
+
+where F(; θ<sub>i</sub>) implements the composition of two convolutions parameterized by weights θi and the application of the ReLU functions.
+
+![Model_architecture](https://github.com/indr19/Action_Recognition/blob/master/images/Capture.JPG)
+
+
+### 2.5 Infrastructure
 1. The Cloud
     * NVIDIA Deep Learning AMI v20.11.0-46a68101-e56b-41cd-8e32-631ac6e5d02b
     * g4dn.2xlarge
@@ -93,29 +113,9 @@ Note: this is different than just detecting if there is a pedestrian in the fram
 
 3. The Edge Device
     * Jetson Xavier NX
-
-### 2.4 System Design
-![System diagram](https://github.com/indr19/Action_Recognition/blob/master/images/W251%20System%20Design_Final.jpg)
-
-## <a id="Model">3.0 The Model
-We use a “(2+1)D” convolutional block, which explicitly factorizes 3D convolution into two separate and successive operations, a 2D spatial convolution and a 1D temporal convolution.
-R(2+1)D are ResNets with (2+1)D convolutions. For interpretability, residual connections are omitted.
-The first advantage is an additional nonlinear rectification between these two operations. This effectively doubles the number of nonlinearities compared to a network using full 3D convolutions for the same number of parameters, thus rendering the model capable of representing more complex functions.
-The second potential benefit is that the decomposition facilitates the optimization, yielding in practice both a lower training loss and a lower testing loss.
-
 *[Return to contents](#Contents)*
 
 ### 3.1 Model Architecture 
-- Convolutional residual blocks for video
-In this section we discuss several spatiotemporal convolutional variants within the framework of residual learning.
-Let x denote the input clip of size 3×L× H ×W, where L is the number of frames in the clip, H and W are the frame height and width, and 3 refers to the RGB channels. 
-Let z<sub>i</sub> be the tensor computed by the i-th convolutional block in the residual network. In this work we consider only“vanilla” residual blocks (i.e., without bottlenecks), with each block consisting of two convolutional layers with a ReLU activation function after each layer. Then the output of the i-th residual block is given by
-
-![Cov_Res equation](https://github.com/indr19/Action_Recognition/blob/master/images/Conv%20Res.JPG)
-
-where F(; θ<sub>i</sub>) implements the composition of two convolutions parameterized by weights θi and the application of the ReLU functions.
-
-![Model_architecture](https://github.com/indr19/Action_Recognition/blob/master/images/Capture.JPG)
 
 - **Loss Fuction - CrossEntropyLoss**</br>
 
