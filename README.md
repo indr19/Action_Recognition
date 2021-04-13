@@ -27,22 +27,22 @@ Human action recognition is a standard Computer Vision problem and has been well
 
 ### 1.2 Evolution of Action Recognition
 
-*2014*
+**2014**
 In 2014, two important breakthrough papers gave deep learning the start in video recognition. Large-scale Video Classification with Convolutional Neural Networks by Karpathy et. al. and Two-Stream Convolutional Networks for Action Recognition in Videos by Simonyan and Zisserman gave rise to the popularity of single stream and two stream networks in action recognition.
 
-*2015*
+**2015**
 3D ConvNets were established as the new state of the art in the 2015 research paper Learning Spatiotemporal Features with 3D Convolutional Networks by Du Tran et. al . In this paper, they establish that the 3D convolution net (C3D) with a 3x3x3 kernel is the most effective in learning spatiotemporal features.
 
-*2016*
+**2016**
 The focus shifted back to two stream networks. In Convolutional Two-Stream Network Fusion for Video Action Recognition by Zisserman et. al. , the authors tackled how to effectively fuse spatial and temporal data across streams and create multi-level loss that could handle long term temporal dependencies. This network was able to better capture motion and spatial features in distinct subnetworks and beat the state of the art IDT and C3D approaches. The multi-level loss is formed by a spatiotemporal loss at the last fusion layer and a separate temporal loss that is formed from output of the temporal net. 
 
-*2017*
+**2017**
  Zhu et. al. took two stream networks a step forward by introducing a hidden stream that learns optical flow called MotionNet [8]. This end-to-end approach allowed the researchers to skip explicitly computing optical flow. This means that two streams approaches could now be real-time and errors from misprediction could also be propagated into MotionNet for more optimal optical flow features.
  
- *2018*
+ **2018**
  Many advances in deep residual learning led to novel architectures like 3DResNet and pseudo-residual C3D (P3D)
  
- *2019...*
+ **2019...**
  Du Tran et. al. propose channel separated convolution networks (CSN) for the task of action recognition in Video Classification with Channel-Separated Convolutional Networks.The researchers build on the ideas of group convolution and depth-wise convolution that received great success in Xception and MobileNet models.Fundamentally, group convolutions introduce regularisation and less computations by not being fully connected. This network effectively captures spatial and spatiotemporal features in their own distinct layers. The channel separated convolution blocks learns these features distinctly but combines them locally at all stages of convolution. This alleviates the need to perform slow fusion of temporal and spatial two stream networks. 
 
 
