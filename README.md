@@ -82,7 +82,6 @@ This might help solve problems like but not limited to
 
 ## <a id="Model">3.0 The Model
   
-## 3.1 Base Model
 We have adopted our model architecture from the accademic paper https://arxiv.org/pdf/1711.11248v3.pdf </br>
 Our choice of model for this usecase is the R(2D+1) Model.R(2+1)D are ResNets with (2+1)D convolutions. For interpretability, residual connections are omitted.A “(2+1)D” convolutional block, which explicitly factorizes 3D convolution into two separate and successive operations, a 2D spatial convolution and a 1D temporal convolution.</br>
 
@@ -104,14 +103,14 @@ where F(; θ<sub>i</sub>) implements the composition of two convolutions paramet
 
 ![Model_architecture](https://github.com/indr19/Action_Recognition/blob/master/images/Capture.JPG)
 
-## 3.2 Kinetics400 dataset pretraining parameters
+## 3.1 Kinetics400 dataset
 input size: [3, 16, 112, 112]</br>
 input space: RGB</br>
 input range: [0, 1]</br>
 mean: [0.43216, 0.394666, 0.37645]</br>
 std: [0.22803, 0.22145, 0.216989]</br>
 
-## 3.3 Hyperparameters
+## 3.2 Hyperparameters
 number of frames per clip = 16</br>
 maximum number of clips per video to consider =5 </br>
 batch-size =8 </br>
@@ -125,6 +124,7 @@ decrease lr by a factor of lr-gamma=0,1</br>
 number of warmup epochs=10</br>
 number of classes: 400</br>
 
+We have used the pretrained model **r2plus1d_18** which allowed us to get the pretrained weights and use teh same to train on a smaller dataset using transfer learning. Since domains were similar but not exactly same, transfer learning worked out for us with a 70% accuracy on test set.
 
 *[Return to contents](#Contents)*
 
