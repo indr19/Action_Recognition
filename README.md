@@ -67,25 +67,32 @@ This might help solve problems like but not limited to
 - All videos are more than 8 secs
 - The training data is labelled correctly
 
-### 2.3 Components
-We have adopted our model architecture from the accademic paper https://arxiv.org/pdf/1711.11248v3.pdf </br>
-Our choice of model for this usecase is the R(2D+1) Model.A “(2+1)D” convolutional block, which explicitly factorizes 3D convolution into two separate and successive operations,
-a 2D spatial convolution and a 1D temporal convolution.</br>
-The first advantage is an additional nonlinear rectification between these two operations. This effectively doubles the number of nonlinearities compared to a network using full 3D convolutions for the same number of parameters, thus rendering the model capable of representing more complex functions.The second potential benefit is that the decomposition facilitates the optimization, yielding in practice both a lower training loss and a lower testing loss.Compared to full 3D filters where appearance the (2+1)D blocks (with factorized spatial and temporal components) are easier to optimize.
-
-We are using a R(2D+1) Model trained  We are using Jetson Xavier NX for our inference. Trained models are saved over to Jetson device and used for testing.The USB cam on the xavier will stream in the video feeds and the pre-trained model will predict if there is a 'pedestrian approaching' or a 'cyclist approaching' in the view of the camera.
-Note: this is different than just detecting if there is a pedestrian in the frame, while driving on the streets, there will be predestrians in the view, our approach here is to detect when the pedestrain is dangerously close to the vehicle or moving in a way that could potenially mean them intercepting the path of the moving vehicle. It's easy for humans to detect such situations since we have plethora of experiences detecting when a situation may develop with the slightest of the hints. 
-
-(2+1)D decomposition offers two advantages. First, despite not changing the number of parameters, it doubles the number of nonlinearities in the network due to the additional ReLU between the 2D and 1D convolution in each block. Increasing the number of nonlinearities increases the complexity of functions that can be represented, as also noted in VGG networks [30] which approximate the effect of a big filter by applying multiple smaller filters with additional nonlinearities in between. The second benefit is that forcing the 3D convolution into separate spatial and temporal components renders the optimization easier. This is manifested in lower training error compared to 3D convolutional networks of the same capacity
-### 2.4 System Design
+### 2.3 System Design
 ![System diagram](https://github.com/indr19/Action_Recognition/blob/master/images/W251%20System%20Design_Final.jpg)
 
+### 2.4 Infrastructure
+1. The Cloud
+    * NVIDIA Deep Learning AMI v20.11.0-46a68101-e56b-41cd-8e32-631ac6e5d02b
+    * g4dn.2xlarge
+    * Configure the Virtual m/c
+      * aws ec2 create-security-group --group-name hw09 --description "FinalProj" --vpc-id vpc-id
+      * aws ec2 authorize-security-group-ingress --group-id security_group_id --protocol tcp --port 1-65535 --cidr 0.0.0.0/0
+      * aws ec2 run-instances --image-id ami-05637fb3a5183e0d0 --instance-type g4dn.2xlarge --security-group-ids security_group_id --associate-public-ip-address --key-name key --count 1
+
+
 ## <a id="Model">3.0 The Model
-We use a “(2+1)D” convolutional block, which explicitly factorizes 3D convolution into two separate and successive operations, a 2D spatial convolution and a 1D temporal convolution.
-R(2+1)D are ResNets with (2+1)D convolutions. For interpretability, residual connections are omitted.
+  
+## 3.1 Base Model
+We have adopted our model architecture from the accademic paper https://arxiv.org/pdf/1711.11248v3.pdf </br>
+Our choice of model for this usecase is the R(2D+1) Model.R(2+1)D are ResNets with (2+1)D convolutions. For interpretability, residual connections are omitted.A “(2+1)D” convolutional block, which explicitly factorizes 3D convolution into two separate and successive operations, a 2D spatial convolution and a 1D temporal convolution.</br>
+
+- (2+1)D decomposition
+(2+1)D decomposition offers two advantages. First, despite not changing the number of parameters, it doubles the number of nonlinearities in the network due to the additional ReLU between the 2D and 1D convolution in each block. Increasing the number of nonlinearities increases the complexity of functions that can be represented, as also noted in VGG networks [30] which approximate the effect of a big filter by applying multiple smaller filters with additional nonlinearities in between. The second benefit is that forcing the 3D convolution into separate spatial and temporal components renders the optimization easier. This is manifested in lower training error compared to 3D convolutional networks of the same capacity
+
+-Advantages of (2+1)D decomposition
 The first advantage is an additional nonlinear rectification between these two operations. This effectively doubles the number of nonlinearities compared to a network using full 3D convolutions for the same number of parameters, thus rendering the model capable of representing more complex functions.
 The second potential benefit is that the decomposition facilitates the optimization, yielding in practice both a lower training loss and a lower testing loss.
-  
+
 - Convolutional residual blocks for video
 In this section we discuss several spatiotemporal convolutional variants within the framework of residual learning.
 Let x denote the input clip of size 3×L× H ×W, where L is the number of frames in the clip, H and W are the frame height and width, and 3 refers to the RGB channels. 
@@ -97,36 +104,14 @@ where F(; θ<sub>i</sub>) implements the composition of two convolutions paramet
 
 ![Model_architecture](https://github.com/indr19/Action_Recognition/blob/master/images/Capture.JPG)
 
-
-### 2.5 Infrastructure
-1. The Cloud
-    * NVIDIA Deep Learning AMI v20.11.0-46a68101-e56b-41cd-8e32-631ac6e5d02b
-    * g4dn.2xlarge
-    * Configure the Virtual m/c
-      * aws ec2 create-security-group --group-name hw09 --description "FinalProj" --vpc-id vpc-id
-      * aws ec2 authorize-security-group-ingress --group-id security_group_id --protocol tcp --port 1-65535 --cidr 0.0.0.0/0
-      * aws ec2 run-instances --image-id ami-05637fb3a5183e0d0 --instance-type g4dn.2xlarge --security-group-ids security_group_id --associate-public-ip-address --key-name key --count 1
-
-2. The Data
-    * Kinetics400 dataset, a benchmark dataset for human-action recognition. The accuracy is reported on the traditional validation split.
-    * Labelled data from Youtube
-
-3. The Edge Device
-    * Jetson Xavier NX
-*[Return to contents](#Contents)*
-
-### 3.1 Model Architecture 
-
-- **Loss Fuction - CrossEntropyLoss**</br>
-
-- **Kinetics400 dataset pretraining parameters**</br>
+## 3.2 Kinetics400 dataset pretraining parameters
 input size: [3, 16, 112, 112]</br>
 input space: RGB</br>
 input range: [0, 1]</br>
 mean: [0.43216, 0.394666, 0.37645]</br>
 std: [0.22803, 0.22145, 0.216989]</br>
 
-- **Hyperparameters**</br>
+## 3.3 Hyperparameters
 number of frames per clip = 16</br>
 maximum number of clips per video to consider =5 </br>
 batch-size =8 </br>
@@ -138,7 +123,7 @@ weight decay = 1e-4**</br>
 decrease lr on milestones=[20, 30, 40]</br>
 decrease lr by a factor of lr-gamma=0,1</br>
 number of warmup epochs=10</br>
-number of classes: 3</br>
+number of classes: 400</br>
 
 
 *[Return to contents](#Contents)*
