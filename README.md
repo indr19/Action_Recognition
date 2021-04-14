@@ -85,14 +85,14 @@ This might help solve problems like but not limited to
 We have adopted our model architecture from the accademic paper https://arxiv.org/pdf/1711.11248v3.pdf </br>
 Our choice of model for this usecase is the R(2D+1) Model.R(2+1)D are ResNets with (2+1)D convolutions. For interpretability, residual connections are omitted.A “(2+1)D” convolutional block, which explicitly factorizes 3D convolution into two separate and successive operations, a 2D spatial convolution and a 1D temporal convolution.</br>
 
-- (2+1)D decomposition
+- (2+1)D decomposition</br>
 (2+1)D decomposition offers two advantages. First, despite not changing the number of parameters, it doubles the number of nonlinearities in the network due to the additional ReLU between the 2D and 1D convolution in each block. Increasing the number of nonlinearities increases the complexity of functions that can be represented, as also noted in VGG networks [30] which approximate the effect of a big filter by applying multiple smaller filters with additional nonlinearities in between. The second benefit is that forcing the 3D convolution into separate spatial and temporal components renders the optimization easier. This is manifested in lower training error compared to 3D convolutional networks of the same capacity
 
-- Advantages of (2+1)D decomposition
+- Advantages of (2+1)D decomposition</br>
 The first advantage is an additional nonlinear rectification between these two operations. This effectively doubles the number of nonlinearities compared to a network using full 3D convolutions for the same number of parameters, thus rendering the model capable of representing more complex functions.
 The second potential benefit is that the decomposition facilitates the optimization, yielding in practice both a lower training loss and a lower testing loss.
 
-- Convolutional residual blocks for video
+- Convolutional residual blocks for video</br>
 In this section we discuss several spatiotemporal convolutional variants within the framework of residual learning.
 Let x denote the input clip of size 3×L× H ×W, where L is the number of frames in the clip, H and W are the frame height and width, and 3 refers to the RGB channels. 
 Let z<sub>i</sub> be the tensor computed by the i-th convolutional block in the residual network. In this work we consider only“vanilla” residual blocks (i.e., without bottlenecks), with each block consisting of two convolutional layers with a ReLU activation function after each layer. Then the output of the i-th residual block is given by
