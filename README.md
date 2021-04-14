@@ -131,6 +131,7 @@ We have used the pretrained model **r2plus1d_18** which allowed us to get the pr
 ## <a id="Imgen">4.0 Generating Training Data
   
 ## 4.1 Generating train data
+Original FPS : 
 We relied on videos from Youtube covering 3 classes 
 * pedestrians
 * cyclists
