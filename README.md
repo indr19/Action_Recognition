@@ -88,7 +88,7 @@ Our choice of model for this usecase is the R(2D+1) Model.R(2+1)D are ResNets wi
 - (2+1)D decomposition
 (2+1)D decomposition offers two advantages. First, despite not changing the number of parameters, it doubles the number of nonlinearities in the network due to the additional ReLU between the 2D and 1D convolution in each block. Increasing the number of nonlinearities increases the complexity of functions that can be represented, as also noted in VGG networks [30] which approximate the effect of a big filter by applying multiple smaller filters with additional nonlinearities in between. The second benefit is that forcing the 3D convolution into separate spatial and temporal components renders the optimization easier. This is manifested in lower training error compared to 3D convolutional networks of the same capacity
 
--Advantages of (2+1)D decomposition
+- Advantages of (2+1)D decomposition
 The first advantage is an additional nonlinear rectification between these two operations. This effectively doubles the number of nonlinearities compared to a network using full 3D convolutions for the same number of parameters, thus rendering the model capable of representing more complex functions.
 The second potential benefit is that the decomposition facilitates the optimization, yielding in practice both a lower training loss and a lower testing loss.
 
