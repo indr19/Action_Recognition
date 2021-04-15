@@ -280,26 +280,23 @@ sudo docker run -it --rm --runtime=nvidia --device=/dev/video0 -v ~/w251/finalpr
 
 ## <a id="Ovs">6.0 Observations
 * Choice transfer learning
-  * Domain
-  * Target & Source labelling
-* Retraining 
-  * Time
-  * compute
+  * Similarity of domain relating to human actions in Kinetics dataset lead us to choose the trasnfer learning
+  * Target & Source labelling were similar in our daatset and the Kinetics dataset on which the base model was trained
 * Limitations of applications
-  * Prediction Delay
-  * Adoption Options
-* Retail
+  * Since we used one frame ata time for prediction, there was substantial delay between action and predictin. This limits this solution for use in autonomous vehicles.
+  * However this solution can act well in retail , to classify customer intent on buying a product with features like  actions taken by customer with the product, time spent by the customer in front of teh product aisle etc.. Here the delay in prediction will not lead to a major impact on business .
 
 *[Return to contents](#Contents)*
 ## References
-Base Code from pytorch - https://github.com/pytorch/vision/tree/master/references/video_classification </br>
-Kinetics Dataset - https://deepmind.com/research/open-source/kinetics</br>
-Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset - https://arxiv.org/pdf/1705.07750.pdf </br>
-A Closer Look at Spatiotemporal Convolutions for Action Recognition - https://arxiv.org/pdf/1711.11248v3.pdf </br>
-Video Classification Using 3D ResNet - https://github.com/kenshohara/video-classification-3d-cnn-pytorch </br>
-Large-scale Video Classification with Convolutional Neural Networks - https://www.cv-foundation.org/openaccess/content_cvpr_2014/papers/Karpathy_Large-scale_Video_Classification_2014_CVPR_paper.pdf </br>
-Awesome Action Recognition - https://github.com/jinwchoi/awesome-action-recognition </br>
-Deep Learning Models for Human Activity Recognition - https://machinelearningmastery.com/deep-learning-models-for-human-activity-recognition/ </br>
-Pedestrian and Cyclist Detection and Intent Estimation for Autonomous Vehicles - https://www.mdpi.com/2076-3417/9/11/2335/htm#B48-applsci-09-02335 </br>
-Deep Learning Architectures for Action Recognition - https://towardsdatascience.com/deep-learning-architectures-for-action-recognition-83e5061ddf90 </br>
-Literature Survey: Human Action Recognition - https://towardsdatascience.com/literature-survey-human-action-recognition-cc7c3818a99a </br>
+Transfer Learning - https://ruder.io/transfer-learning/
+Base Code from pytorch - https://github.com/pytorch/vision/tree/master/references/video_classification
+Kinetics Dataset - https://deepmind.com/research/open-source/kinetics
+Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset - https://arxiv.org/pdf/1705.07750.pdf
+A Closer Look at Spatiotemporal Convolutions for Action Recognition - https://arxiv.org/pdf/1711.11248v3.pdf
+Video Classification Using 3D ResNet - https://github.com/kenshohara/video-classification-3d-cnn-pytorch
+Large-scale Video Classification with Convolutional Neural Networks - https://www.cv-foundation.org/openaccess/content_cvpr_2014/papers/Karpathy_Large-scale_Video_Classification_2014_CVPR_paper.pdf
+Awesome Action Recognition - https://github.com/jinwchoi/awesome-action-recognition
+Deep Learning Models for Human Activity Recognition - https://machinelearningmastery.com/deep-learning-models-for-human-activity-recognition/
+Pedestrian and Cyclist Detection and Intent Estimation for Autonomous Vehicles - https://www.mdpi.com/2076-3417/9/11/2335/htm#B48-applsci-09-02335
+Deep Learning Architectures for Action Recognition - https://towardsdatascience.com/deep-learning-architectures-for-action-recognition-83e5061ddf90
+Literature Survey: Human Action Recognition - https://towardsdatascience.com/literature-survey-human-action-recognition-cc7c3818a99a
