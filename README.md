@@ -129,7 +129,16 @@ We have used the pretrained model **r2plus1d_18** which allowed us to get the pr
 *[Return to contents](#Contents)*
 
 ## <a id="Imgen">4.0 Generating Training Data
-  
+The frames recieved from the camera are buffered on the Jetson via a sliding window approach. Each frame initiates a new queue that keeps adding frames until a specified number of frames are collected. e.g. if we are going to do inference on a 3 second clip, assuming we are getting 15 fps from the usb cam on the jetson, we will have 45 frames in a queue, which will then be used for inference and then the frames will be discarded. Every second a new queue will be created, which means every 15 frames a new queue is created, at the end of 3 seconds we have 3 queues which the first queue having 45 frames, the 2nd one with 30 frames and the 3rd one with 15 frames. That is the maximum number of frames we will have in memory at a given time. As soon as a queue has 45 frames, we run the prediction and drop the frames.
+
+- Original Frames per second(FPS) = 30
+- Resampled FPS=15
+- Frames per clip =16
+- Frames in between clips =1
+
+![FPS_1](https://github.com/indr19/Action_Recognition/blob/master/images/FPS_1.JPG)
+![FPS_2](https://github.com/indr19/Action_Recognition/blob/master/images/FPS_2.JPG)
+
 ## 4.1 Collecting train data
 After searching Youtube and viewing many videos with cars and pedestrians, a series by J Utah seemed best for this project. The videos are part of a series where a video camera is mounted most likely to the hood of a car and a recording is made while the car drives around the city for about an hour. The images are high resolution (8 million pixels) and very clear. The videos are taken in many cities of the world and at different times of the day. We selected 4 cities: Los Angeles because of the wide streets, New York at night because of the bright neon lights, and Singapore and London because both represent differnt cultures than America with driving on the opposite side of the road. Each video was viewed and 10 second clips were manually selected to represent three classes: no pedestrian or cyclist, pedestrian, and cyclist.
 
@@ -167,19 +176,7 @@ Some examples of videos taken with this setup are represented as images below. T
 ![Homemade_vids](https://github.com/indr19/Action_Recognition/blob/master/images/Homemade_vids.JPG)
 
 ### 4.3 The Preprocessor
-
-The frames recieved from the camera are buffered on the Jetson via a sliding window approach. Each frame initiates a new queue that keeps adding frames until a specified number of frames are collected. e.g. if we are going to do inference on a 3 second clip, assuming we are getting 15 fps from the usb cam on the jetson, we will have 45 frames in a queue, which will then be used for inference and then the frames will be discarded. Every second a new queue will be created, which means every 15 frames a new queue is created, at the end of 3 seconds we have 3 queues which the first queue having 45 frames, the 2nd one with 30 frames and the 3rd one with 15 frames. That is the maximum number of frames we will have in memory at a given time. As soon as a queue has 45 frames, we run the prediction and drop the frames.
-
-- Original Frames per second(FPS) = 30
-- Resampled FPS=15
-- Frames per clip =16
-- Frames in between clips =1
-
-![FPS_1](https://github.com/indr19/Action_Recognition/blob/master/images/FPS_1.JPG)
-![FPS_2](https://github.com/indr19/Action_Recognition/blob/master/images/FPS_2.JPG)
-
-### 4.4 Training & Validation Dataset
-* Prepare the *training list*, the ones we wish to download from YouTube and tag them appropriately
+Prepare the *training list*, the ones we wish to download from YouTube and tag them appropriately
   * Each entry in the video list needs to be of the format:
   {'url':"\<url of the video>", 'category':'\<category>', 'start': \<start seconds>, 'end': \<end seconds>}
   * e.g., the list file should look like, start and end are time in seconds, category is the label which should be known
