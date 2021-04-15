@@ -263,8 +263,8 @@ Fetch the checkpoints from the system where you ran your training, e.g., if you 
   * Connect the xavier to this new Wifi network
   * Connect your phone/laptop to this Wifi network
   * Both the phone and the xavier will get a 10.42.* address when on this network. You can use this IP to talk to the xavier from the phone.
-  * Change the following in the index.html file to match your Jetsons IP
-    * <img src="http://192.168.1.20:8080/videostream" width="30%">
+  * Change the index.html file to match your Jetsons IP
+
     
   * Get prediction on your ios phone
   *   Navigate to the http://<jetson ip>:8080/ on your browser
