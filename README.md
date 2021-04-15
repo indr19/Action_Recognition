@@ -142,16 +142,15 @@ The video sources are as follows:
 * London: https://www.youtube.com/watch?v=QI4_dGvZ5yE)
 
 Table of clips per city collected
----------------------------------------------------------------------
-City		Cyclist		Pedestrian	No Pedestrian/Cyclist
----------------------------------------------------------------------
-New York	7		9		7
-Los Angeles	1		14		14
-London		2		7		9
-Singapore	0		7		8
----------------------------------------------------------------------
-Total clips:	10		37		38
-Total images:	3000		11,100		11,400
+City         |  Cyc. |  Ped. | None
+-------------|-------|-------|-------
+New York     |   7   |   9   |   7
+Los Angeles  | 	 1   |  14   |  14
+London       |   2   |   7   |   9
+Singapore    |   0   |   7   |   8
+-------------|-------|-------|-------
+Total clips  |	  10 |  37   |     38
+Total images |  3000 | 11,100| 11,400
 
 
 
