@@ -122,7 +122,7 @@ weight decay = 1e-4**</br>
 decrease lr on milestones=[20, 30, 40]</br>
 decrease lr by a factor of lr-gamma=0,1</br>
 number of warmup epochs=10</br>
-number of classes: 400</br>
+number of classes:3 </br>
 
 We have used the pretrained model **r2plus1d_18** which allowed us to get the pretrained weights and use teh same to train on a smaller dataset using transfer learning. Since domains were similar but not exactly same, transfer learning worked out for us with a 70% accuracy on test set.
 
@@ -280,8 +280,7 @@ sudo docker run -it --rm --runtime=nvidia --device=/dev/video0 -v ~/w251/finalpr
 
 ## <a id="Ovs">7.0 Observations
 * Choice transfer learning
-  * The actions we wanted to classify were walking , cycling and empty roads. These actions were of similar domain to actions in Kinetics dataset. This lead us to choose pretrained models with Kinetics400 dataset instaed of retarining from scratch. 
-  * Target & Source labelling were similar in our datset and the Kinetics dataset on which the base model was trained
+  * Size of our Data set is small while the Data similarity is very high – The actions we wanted to classify were walking , cycling and empty roads. These actions were of similar domain to actions in Kinetics dataset. In this case, since the data similarity is very high, we do not need to retrain the model. All we need to do is to customize and modify the output layers according to our problem statement. We used the pretrained model as a feature extractor. However we just need three categories as my output – pedestrains,cyclists or no pedestrians. In this case all we do is just modify the dense layers and the final softmax layer to output 3 categories instead of 400.
 * Limitations of applications
   * Since we used one frame ata time for prediction, there was substantial delay between action and predictin. This limits this solution for use in autonomous vehicles.
   * However this solution can act well in retail , to classify customer intent on buying a product with features like  actions taken by customer with the product, time spent by the customer in front of teh product aisle etc.. Here the delay in prediction will not lead to a major impact on business .
