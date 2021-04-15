@@ -278,10 +278,10 @@ sudo docker run -it --rm --runtime=nvidia --device=/dev/video0 -v ~/w251/finalpr
 
 *[Return to contents](#Contents)*
 
-## <a id="Ovs">6.0 Observations
+## <a id="Ovs">7.0 Observations
 * Choice transfer learning
-  * Similarity of domain relating to human actions in Kinetics dataset lead us to choose the trasnfer learning
-  * Target & Source labelling were similar in our daatset and the Kinetics dataset on which the base model was trained
+  * The actions we wanted to classify were walking , cycling and empty roads. These actions were of similar domain to actions in Kinetics dataset. This lead us to choose pretrained models with Kinetics400 dataset instaed of retarining from scratch. 
+  * Target & Source labelling were similar in our datset and the Kinetics dataset on which the base model was trained
 * Limitations of applications
   * Since we used one frame ata time for prediction, there was substantial delay between action and predictin. This limits this solution for use in autonomous vehicles.
   * However this solution can act well in retail , to classify customer intent on buying a product with features like  actions taken by customer with the product, time spent by the customer in front of teh product aisle etc.. Here the delay in prediction will not lead to a major impact on business .
