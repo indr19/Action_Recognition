@@ -141,7 +141,11 @@ The video sources are as follows:
 * Singapore: https://www.youtube.com/watch?v=IpEpTWIDL4Q)
 * London: https://www.youtube.com/watch?v=QI4_dGvZ5yE)
 
-Table of clips per city collected
+When collecting clips it was important to get 10 seconds of pedestrians crossing the street or 10 seconds of someone riding a bike in front of the car. This was sometimes challenging since people generally take 3 or 4 seconds to cross a street and cyclists usually do not spend much time in front of vehicles. For the control cases, videos were selected when the the car was at a stop light for 10 seconds with no pedestrians crossing, and when the car was driving down the street with no cyclists. The table below shows the number of clips selected per class per city. There is a class imbalance since getting clips of cyclists was challenging. They represent about 10% of the videos. Since each clip was 10 seconds and each video had 30 frames per second, we collected over 25,000 images in total for training.
+
+
+
+Table of clips collected per class per city
 City         |  Cyc. |  Ped. | None
 -------------|-------|-------|-------
 New York     |   7   |   9   |   7
@@ -152,10 +156,13 @@ Singapore    |   0   |   7   |   8
 Total clips  |	  10 |  37   |     38
 Total images |  3000 | 11,100| 11,400
 
+## 4.2 Homemade videos
+In order to test out our model, it was important to be able to stream and record live videos while driving around a local neighborhood. To do this, the Jetson Xavier had to be protected and supplied with power while driving in a vehicle. There were several options for Jetson cases, but the one selected was an aluminum alloy case from Yahboom. In order to power the Jetson, a rechargeable 12V lithium ion battery pack (TalentCell) was purchased from Amazon. A Logitech Pro 9000 PC Internet Camera Webcam with Carl Zeiss Lens Optics (2 million pixels) was used to collect videos. The setup is shown in the photo below. The camera was taped to the dashboard and connected to the Jetson on the passenger seat. To reduce bright sunlight from the sensor, a post-it was placed on the camera.  
+
+![setup](https://github.com/indr19/Action_Recognition/blob/master/images/setup.JPG)
 
 
-
-## 4.2 Testing with live feed
+## 4.3 Testing with live feed
 The jetson xavier was mounted on the dashboard of the car. The USB cam on the xavier will stream in the video feeds and the pre-trained model will predict if there is a 'pedestrian approaching' or a 'cyclist approaching' in the view of the camera.
 The frames recieved from the camera are buffered on the Jetson via a sliding window approach. Each frame initiates a new queue that keeps adding frames until a specified number of frames are collected. e.g. if we are going to do inference on a 3 second clip, assuming we are getting 15 fps from the usb cam on the jetson, we will have 45 frames in a queue, which will then be used for inference and then the frames will be discarded. Every second a new queue will be created, which means every 15 frames a new queue is created, at the end of 3 seconds we have 3 queues which the first queue having 45 frames, the 2nd one with 30 frames and the 3rd one with 15 frames. That is the maximum number of frames we will have in memory at a given time. As soon as a queue has 45 frames, we run the prediction and drop the frames.
 
