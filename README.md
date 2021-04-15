@@ -242,7 +242,7 @@ Fetch the checkpoints from the system where you ran your training, e.g., if you 
   * python3 test.py --test-dir= test image seq. dir --resume-dir= full path to checkpoint file
   
 * Test Results
-  * Test Accuracy = 68.000 
+  * Test Accuracy = 77.143 
 
 ### 6.3 The Alarm Generator
 
