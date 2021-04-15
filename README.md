@@ -280,7 +280,7 @@ sudo docker run -it --rm --runtime=nvidia --device=/dev/video0 -v ~/w251/finalpr
 
 ## <a id="Ovs">6.0 Observations
 * Choice transfer learning
-+ Domain
+  * Domain
 + Target & Source labelling
 * Retraining 
 + Time
