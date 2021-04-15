@@ -219,22 +219,21 @@ While vision/references/video_classification/train.py in the pytorch repo uses P
 *[Return to contents](#Contents)*
 
 ## <a id="Edge">6.0 Inferencing at the Edge
-  
-### 6.1 The Detector
 The inference on Edge(Jetson Xavier NX) can be done through live feed or using saved videos. The frames recieved from the camera are buffered on the Jetson via a sliding window approach. Each frame initiates a new queue that keeps adding frames until a specified number of frames are collected. e.g. if we are going to do inference on a 3 second clip, assuming we are getting 15 fps from the usb cam on the jetson, we will have 45 frames in a queue, which will then be used for inference and then the frames will be discarded. Every second a new queue will be created, which means every 15 frames a new queue is created, at the end of 3 seconds we have 3 queues which the first queue having 45 frames, the 2nd one with 30 frames and the 3rd one with 15 frames. That is the maximum number of frames we will have in memory at a given time. As soon as a queue has 45 frames, we run the prediction and drop the frames.
-  
+
+
+### 6.1 The Detector
+* Read the frame from the video feed of the camera encode the image in JPEG format convert the encoded image to bytearray format send the bytearray as image/jpeg content type in the http response Content-Type: image/jpeg bytearray(jpeg_encoded_image)
+  * yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n')
+
 Download the docker image that will be used to run the inference on the jetson
   * docker pull mayukhd/jetson_4_1:cp36torch1.7
-  * Remember to run the container on Jetson with --device=/dev/video0 flag
-  * Stream video from Jetson to a web browser
-    * Read the frame from the video feed of the camera encode the image in JPEG format convert the encoded image to bytearray format send the bytearray as image/jpeg content type in the http response Content-Type: image/jpeg bytearray(jpeg_encoded_image)
-    * yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n')
-  * Get the docker image to use on the Jetson, and run the container with access to the camera
+  * Remember to run the container on Jetson with --device=/dev/video0 flag with access to the camera
     * sudo docker run -it --rm --runtime=nvidia --device=/dev/video0 -v ~/w251/finalproject/app:/app -p 8888:8888 mayukhd/jetson_4_1:cp36torch1.7
   * Install the dependencies inside the container
     * pip3 install -r requirements.txt
-    * pip3 install -r requirements_dev_macos.txt
-  
+    * pip3 install -r requirements_all.txt
+  * Stream video from Jetson to a web browser
 
 ### 6.2 Run Test
 * Download the test images 
@@ -244,7 +243,7 @@ Download the docker image that will be used to run the inference on the jetson
 * Run a test scipt inside the container
     * docker exec -it 6031b3f72bec sh
     * python3 test.py --test-dir=\<test image seq. dir> --resume-dir=\<full path to checkpoint file>
-    * Test Accuracy - 30%
+* Test Accuracy - 30%
   
 ### 6.3 The Inferencer
 The inference container runs the model that was trained in the cloud. On receipt of an feed, the container further preprocesses the image, feeds the processed image forward through the network and predicts the class of the video clip. We also provide a measure of accuracy (using the ground truth which is embedded in the file names passed through).
@@ -266,6 +265,7 @@ Fetch the checkpoints from the system where you ran your training, e.g., if you 
   * Both the phone and the xavier will get a 10.42.* address when on this network. You can use this IP to talk to the xavier from the phone.
   * Change the following in the index.html file to match your Jetsons IP
     * <img src="http://192.168.1.20:8080/videostream" width="30%">
+    
   * Get prediction on your ios phone
   *   Navigate to the http://<jetson ip>:8080/ on your browser
   *   Open debug view in your browser, you should see the console printing essages that it is receiving communication from the server via sockets in an async manner.
