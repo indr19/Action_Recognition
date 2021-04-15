@@ -133,8 +133,13 @@ We have used the pretrained model **r2plus1d_18** which allowed us to get the pr
 ## 4.1 Collecting train data
 After searching Youtube and viewing many videos with cars and pedestrians, a series by J Utah seemed best for this project. The videos are part of a series where a video camera is mounted most likely to the hood of a car and a recording is made while the car drives around the city for about an hour. The images are high resolution (8 million pixels) and very clear. The videos are taken in many cities of the world and at different times of the day. We selected 4 cities: Los Angeles because of the wide streets, New York at night because of the bright neon lights, and Singapore and London because both represent differnt cultures than America with driving on the opposite side of the road. Each video was viewed and 10 second clips were manually selected to represent three classes: no pedestrian or cyclist, pedestrian, and cyclist.
 
-![Classes](https://github.com/indr19/Action_Recognition/blob/master/images/Capture.JPG)
+![Classes](https://github.com/indr19/Action_Recognition/blob/master/images/Classes.JPG)
 
+The following cities were selected:
+###- Los Angeles (https://www.youtube.com/watch?v=Cw0d-nqSNE8)
+###- New York (https://www.youtube.com/watch?v=n1xkO0_lSU0)
+###- Singapore (https://www.youtube.com/watch?v=IpEpTWIDL4Q)
+###- London (https://www.youtube.com/watch?v=QI4_dGvZ5yE)
   
 ## 4.2 Testing with live feed
 The jetson xavier was mounted on the dashboard of the car. The USB cam on the xavier will stream in the video feeds and the pre-trained model will predict if there is a 'pedestrian approaching' or a 'cyclist approaching' in the view of the camera.
