@@ -129,7 +129,16 @@ We have used the pretrained model **r2plus1d_18** which allowed us to get the pr
 *[Return to contents](#Contents)*
 
 ## <a id="Imgen">4.0 Generating Training Data
-  
+The frames recieved from the camera are buffered on the Jetson via a sliding window approach. Each frame initiates a new queue that keeps adding frames until a specified number of frames are collected. e.g. if we are going to do inference on a 3 second clip, assuming we are getting 15 fps from the usb cam on the jetson, we will have 45 frames in a queue, which will then be used for inference and then the frames will be discarded. Every second a new queue will be created, which means every 15 frames a new queue is created, at the end of 3 seconds we have 3 queues which the first queue having 45 frames, the 2nd one with 30 frames and the 3rd one with 15 frames. That is the maximum number of frames we will have in memory at a given time. As soon as a queue has 45 frames, we run the prediction and drop the frames.
+
+- Original Frames per second(FPS) = 30
+- Resampled FPS=15
+- Frames per clip =16
+- Frames in between clips =1
+
+![FPS_1](https://github.com/indr19/Action_Recognition/blob/master/images/FPS_1.JPG)
+![FPS_2](https://github.com/indr19/Action_Recognition/blob/master/images/FPS_2.JPG)
+
 ## 4.1 Collecting train data
 After searching Youtube and viewing many videos with cars and pedestrians, a series by J Utah seemed best for this project. The videos are part of a series where a video camera is mounted most likely to the hood of a car and a recording is made while the car drives around the city for about an hour. The images are high resolution (8 million pixels) and very clear. The videos are taken in many cities of the world and at different times of the day. We selected 4 cities: Los Angeles because of the wide streets, New York at night because of the bright neon lights, and Singapore and London because both represent differnt cultures than America with driving on the opposite side of the road. Each video was viewed and 10 second clips were manually selected to represent three classes: no pedestrian or cyclist, pedestrian, and cyclist.
 
@@ -166,20 +175,8 @@ Some examples of videos taken with this setup are represented as images below. T
 
 ![Homemade_vids](https://github.com/indr19/Action_Recognition/blob/master/images/Homemade_vids.JPG)
 
-
-## 4.3 Testing with live feed
-The jetson xavier was mounted on the dashboard of the car. The USB cam on the xavier will stream in the video feeds and the pre-trained model will predict if there is a 'pedestrian approaching' or a 'cyclist approaching' in the view of the camera.
-The frames recieved from the camera are buffered on the Jetson via a sliding window approach. Each frame initiates a new queue that keeps adding frames until a specified number of frames are collected. e.g. if we are going to do inference on a 3 second clip, assuming we are getting 15 fps from the usb cam on the jetson, we will have 45 frames in a queue, which will then be used for inference and then the frames will be discarded. Every second a new queue will be created, which means every 15 frames a new queue is created, at the end of 3 seconds we have 3 queues which the first queue having 45 frames, the 2nd one with 30 frames and the 3rd one with 15 frames. That is the maximum number of frames we will have in memory at a given time. As soon as a queue has 45 frames, we run the prediction and drop the frames.
-
-## <a id="Train">5.0 Training the Model
-We built a Docker container to facilitate training in the cloud. The container is built on the base Pytorch containerand facilitates deploying instances to allow simultaneous training of models . The code in this repo is largely a reuse of the pytorch vision video classification code from here https://github.com/pytorch/vision.git
-While vision/references/video_classification/train.py in the pytorch repo uses PyAV to process the videos, here we do not use PyAV, we instead use a sequence of image files to create the training dataset. The downloader downloads videos from youtube as a collection of images and also prepares an annotation file.
-
-
-*[Return to contents](#Contents)*
-
-### 5.1 The Preprocessor
-* Prepare the *training list*, the ones we wish to download from YouTube and tag them appropriately
+### 4.3 The Preprocessor
+Prepare the *training list*, the ones we wish to download from YouTube and tag them appropriately
   * Each entry in the video list needs to be of the format:
   {'url':"\<url of the video>", 'category':'\<category>', 'start': \<start seconds>, 'end': \<end seconds>}
   * e.g., the list file should look like, start and end are time in seconds, category is the label which should be known
@@ -192,22 +189,28 @@ While vision/references/video_classification/train.py in the pytorch repo uses P
 * Download the images from YouTube using the downloader utility
   * python3 download.py --train_video_list=<full path to the training list> --dataset_traindir=<full path to where the image sequences for training should be saved> --val_video_list=<full path to the test list> --dataset_valdir=<full path to where the image sequences for validation should be saved>
 
-### 5.2 The Trainer
+*[Return to contents](#Contents)*
+
+## <a id="Train">5.0 Training the Model
+We built a Docker container to facilitate training in the cloud. The container is built on the base Pytorch containerand facilitates deploying instances to allow simultaneous training of models . The code in this repo is largely a reuse of the pytorch vision video classification code from here https://github.com/pytorch/vision.git
+While vision/references/video_classification/train.py in the pytorch repo uses PyAV to process the videos, here we do not use PyAV, we instead use a sequence of image files to create the training dataset. The downloader downloads videos from youtube as a collection of images and also prepares an annotation file.
+
+### 5.1 The Trainer
 * Train & validate 
   * The code uses GPU by default, you can change it via the --device parameter when running
   * python3 train.py --train-dir=dataset/train --val-dir=dataset/val --output-dir=checkpoint --pretrained
   * run tensorboard --logdir=runs in another session
   * goto https://<url>:6006 to view the training metrics
 
-### 5.3 The Saver
+### 5.2 The Saver
 * Saves the model checkpoints
 * The checkpoint file is scped to the edge device for inferencing
   * scp -i key -r user@aws public dns :/home/ubuntu/Action_Recognition/torchvideoclf/checkpoint /.* 
 
-### 5.3 Results
+### 5.4 Results
 - Validation Accuracy  = 50.909 
 
-### 5.4 Metrics
+### 5.5 Metrics
 <img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/lr.JPG" width="400"/>
 <img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/trin_acc.JPG" width="400"/>
 <img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/train_loss.JPG" width="400"/>
@@ -239,7 +242,7 @@ Fetch the checkpoints from the system where you ran your training, e.g., if you 
   * python3 test.py --test-dir= test image seq. dir --resume-dir= full path to checkpoint file
   
 * Test Results
-  * Test Accuracy = 68.000 
+  * Test Accuracy = 77.143 
 
 ### 6.3 The Alarm Generator
 
