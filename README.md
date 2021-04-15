@@ -263,13 +263,13 @@ sudo docker run -it --rm --runtime=nvidia --device=/dev/video0 -v ~/w251/finalpr
   * pip3 install -r requirements_dev_macos.txt
 
 * Run a test
-  *   Download test videos
-    +  python3 download.py --val_video_list=<full path to the test list> --dataset_valdir=<full path to where the image sequences>
-  *  Run a test
-    +  python3 test.py --test-dir=\<test image seq. dir> --resume-dir=\<full path to checkpoint file>
+  * Download test videos
+    * python3 download.py --val_video_list=<full path to the test list> --dataset_valdir=<full path to where the image sequences>
+  * Run a test
+    * python3 test.py --test-dir=\<test image seq. dir> --resume-dir=\<full path to checkpoint file>
  
 * Run the app
-  + python3 livedetect.py --device='cpu' --resume-dir=checkpoint.pth
+  * python3 livedetect.py --device='cpu' --resume-dir=checkpoint.pth
   
 * Get prediction on your ios phone
 *   Navigate to the http://<jetson ip>:8080/ on your browser
@@ -281,14 +281,14 @@ sudo docker run -it --rm --runtime=nvidia --device=/dev/video0 -v ~/w251/finalpr
 ## <a id="Ovs">6.0 Observations
 * Choice transfer learning
   * Domain
-+ Target & Source labelling
+  * Target & Source labelling
 * Retraining 
-+ Time
-+ compute
+  * Time
+  * compute
 * Limitations of applications
-+ Prediction Delay
-* Adoption Options
-+ Retail
+  * Prediction Delay
+  * Adoption Options
+* Retail
 
 *[Return to contents](#Contents)*
 ## References
