@@ -208,7 +208,7 @@ While vision/references/video_classification/train.py in the pytorch repo uses P
   * scp -i key -r user@aws public dns :/home/ubuntu/Action_Recognition/torchvideoclf/checkpoint /.* 
 
 ### 5.4 Results
-- Validation Accuracy  = 50.909 
+- Validation Accuracy  = 77% 
 
 ### 5.5 Metrics
 <img src="https://github.com/indr19/Action_Recognition/blob/master/images/LR.JPG" width="400"/>
@@ -238,8 +238,6 @@ The feed detctor captures the live stream using the USG cam on the xavier and fo
 The inference container runs the model that was trained in the cloud. On receipt of an feed, the container further preprocesses the image, feeds the processed image forward through the network and predicts the class of the video clip. We also provide a measure of accuracy (using the ground truth which is embedded in the file names passed through).
 Fetch the checkpoints from the system where you ran your training, e.g., if you ran your training in the cloud you would need to download the checkpoint named 'checkpoint.pth' file which will be in the location specified in --output-dir
 
-* Run test 
-  * python3 test.py --test-dir= test image seq. dir --resume-dir= full path to checkpoint file
 
 ### 6.3 The Alarm Generator
 
@@ -267,7 +265,7 @@ sudo docker run -it --rm --runtime=nvidia --device=/dev/video0 -v ~/w251/finalpr
     * python3 download.py --val_video_list=<full path to the test list> --dataset_valdir=<full path to where the image sequences>
   * Run a test
     * python3 test.py --test-dir=\<test image seq. dir> --resume-dir=\<full path to checkpoint file>
- 
+    * Test Accuracy - 30%
 * Run the app
   * python3 livedetect.py --device='cpu' --resume-dir=checkpoint.pth
   
