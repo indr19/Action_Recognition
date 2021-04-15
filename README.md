@@ -211,10 +211,10 @@ While vision/references/video_classification/train.py in the pytorch repo uses P
 - Validation Accuracy  = 50.909 
 
 ### 5.5 Metrics
-<img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/lr.JPG" width="400"/>
-<img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/trin_acc.JPG" width="400"/>
-<img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/train_loss.JPG" width="400"/>
-<img src="https://github.com/indr19/Action_Recognition/blob/master/metrics/val_acc.JPG" width="400"/>
+<img src="https://github.com/indr19/Action_Recognition/blob/master/images/LR.JPG" width="400"/>
+<img src="https://github.com/indr19/Action_Recognition/blob/master/images/ta.JPG" width="400"/>
+<img src="https://github.com/indr19/Action_Recognition/blob/master/images/tl.JPG" width="400"/>
+<img src="https://github.com/indr19/Action_Recognition/blob/master/images/va.JPG" width="400"/>
 
 *[Return to contents](#Contents)*
 
