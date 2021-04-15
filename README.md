@@ -240,9 +240,6 @@ Fetch the checkpoints from the system where you ran your training, e.g., if you 
 
 * Run test 
   * python3 test.py --test-dir= test image seq. dir --resume-dir= full path to checkpoint file
-  
-* Test Results
-  * Test Accuracy = 77.143 
 
 ### 6.3 The Alarm Generator
 
@@ -265,8 +262,14 @@ sudo docker run -it --rm --runtime=nvidia --device=/dev/video0 -v ~/w251/finalpr
   * pip3 install -r requirements.txt
   * pip3 install -r requirements_dev_macos.txt
 
+* Run a test
+  *   Download test videos
+    *   python3 download.py --val_video_list=<full path to the test list> --dataset_valdir=<full path to where the image sequences>
+  *  Run a test
+    *  python3 test.py --test-dir=\<test image seq. dir> --resume-dir=\<full path to checkpoint file>
+ 
 * Run the app
-  * python3 livedetect.py --resume-dir=checkpoint.pth
+  * python3 livedetect.py --device='cpu' --resume-dir=checkpoint.pth
   
 * Get prediction on your ios phone
 *   Navigate to the http://<jetson ip>:8080/ on your browser
