@@ -162,6 +162,11 @@ In order to test out our model, it was important to be able to stream and record
 ![setup](https://github.com/indr19/Action_Recognition/blob/master/images/setup.JPG)
 
 
+Some examples of videos taken with this setup are represented as images below. They were much different than the training videos. The training videos were very clear, level, high resolution, and in an urban environment. The homemade videos, by contrast, were not clear due to the windshield and glare, they were not always level, they were not as good resolution, and they were in a sub-urban envirnoment, so many more open streets and trees, and fewer buildings.
+
+![Homemade_vids](https://github.com/indr19/Action_Recognition/blob/master/images/Homemade_vids.JPG)
+
+
 ## 4.3 Testing with live feed
 The jetson xavier was mounted on the dashboard of the car. The USB cam on the xavier will stream in the video feeds and the pre-trained model will predict if there is a 'pedestrian approaching' or a 'cyclist approaching' in the view of the camera.
 The frames recieved from the camera are buffered on the Jetson via a sliding window approach. Each frame initiates a new queue that keeps adding frames until a specified number of frames are collected. e.g. if we are going to do inference on a 3 second clip, assuming we are getting 15 fps from the usb cam on the jetson, we will have 45 frames in a queue, which will then be used for inference and then the frames will be discarded. Every second a new queue will be created, which means every 15 frames a new queue is created, at the end of 3 seconds we have 3 queues which the first queue having 45 frames, the 2nd one with 30 frames and the 3rd one with 15 frames. That is the maximum number of frames we will have in memory at a given time. As soon as a queue has 45 frames, we run the prediction and drop the frames.
