@@ -282,8 +282,8 @@ sudo docker run -it --rm --runtime=nvidia --device=/dev/video0 -v ~/w251/finalpr
 * Choice transfer learning
   * Size of our Data set is small while the Data similarity is very high – The actions we wanted to classify were walking , cycling and empty roads. These actions were of similar domain to actions in Kinetics dataset. In this case, since the data similarity is very high, we do not need to retrain the model. All we need to do is to customize and modify the output layers according to our problem statement. We used the pretrained model as a feature extractor. However we just need three categories as my output – pedestrains,cyclists or no pedestrians. In this case all we do is just modify the dense layers and the final softmax layer to output 3 categories instead of 400.
 * Limitations of applications
-  * Since we used one frame ata time for prediction, there was substantial delay between action and predictin. This limits this solution for use in autonomous vehicles.
-  * However this solution can act well in retail , to classify customer intent on buying a product with features like  actions taken by customer with the product, time spent by the customer in front of teh product aisle etc.. Here the delay in prediction will not lead to a major impact on business .
+  * Since we used one frame between the clips for prediction, there was substantial delay between action taking place and prediction. This limits this solution for use in autonomous vehicles where speed of prediction is a major parameter of solution usability.
+  * However this solution can be adopted well in retail , to classify customer intent on buying a product with features like  actions taken by customer with the product, time spent by the customer in front of teh product aisle etc.. Here the delay in prediction will not lead to a major impact on business .
 
 *[Return to contents](#Contents)*
 ## References
@@ -299,3 +299,4 @@ Deep Learning Models for Human Activity Recognition - https://machinelearningmas
 Pedestrian and Cyclist Detection and Intent Estimation for Autonomous Vehicles - https://www.mdpi.com/2076-3417/9/11/2335/htm#B48-applsci-09-02335
 Deep Learning Architectures for Action Recognition - https://towardsdatascience.com/deep-learning-architectures-for-action-recognition-83e5061ddf90
 Literature Survey: Human Action Recognition - https://towardsdatascience.com/literature-survey-human-action-recognition-cc7c3818a99a
+Transfer learning and the art of using Pre-trained Models in Deep Learning - https://www.analyticsvidhya.com/blog/2017/06/transfer-learning-the-art-of-fine-tuning-a-pre-trained-model/#:~:text=in%20human%20evolution.-,What%20is%20a%20Pre%2Dtrained%20Model%3F,build%20a%20self%20learning%20car.
