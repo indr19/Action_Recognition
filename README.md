@@ -195,6 +195,8 @@ Prepare the *training list*, the ones we wish to download from YouTube and tag t
 We built a Docker container to facilitate training in the cloud. The container is built on the base Pytorch containerand facilitates deploying instances to allow simultaneous training of models . The code in this repo is largely a reuse of the pytorch vision video classification code from here https://github.com/pytorch/vision.git
 While vision/references/video_classification/train.py in the pytorch repo uses PyAV to process the videos, here we do not use PyAV, we instead use a sequence of image files to create the training dataset. The downloader downloads videos from youtube as a collection of images and also prepares an annotation file.
 
+Code repo for action recognition - https://github.com/dmayukh/torchvideoclf/releases/tag/v0.1
+
 ### 5.1 The Trainer
 * Train & validate 
   * The code uses GPU by default, you can change it via the --device parameter when running
