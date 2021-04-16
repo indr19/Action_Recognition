@@ -254,6 +254,11 @@ Fetch the checkpoints from the system where you ran your training, e.g., if you 
 * Running the livedetect with a saved video
   * python3 livedetect.py --device='cpu' --resume-dir=checkpoint.pth --fromlocalvideo --saved-video=2021-04-10-155333.mp4
   
+Since the models were trained on 10 second video clips, while running inference on live videos, especially while assessing surroundings when driving around, buffering 10 second clips to predict will not be useful in a situation where decisions needs to be made instantly. We tried predicting on 3 second buffered videos frames instead. We noticed that the processing time of the videos were significantly high on a Jetson Xavier NX. Below is the chart that shows the video processing time (preparation of the dataset for inferencing) and the prediction with majority class detection time. The prediction times were very small, about 1/3 of a second for a batch of 8 clips where each clip had 16 frames (Tensor ([8, 3, 16, 112, 112]), however determining the majority class from 8 predictions (one for each batch), and fetching the average probability etc. overall takes about 2 seconds or more and the preparation of the dataset from the accumulated video frames, resmapling frames, running the transformations etc. takes about 2-3 seconds, leading to a total inference time of about 4-5 seconds.
+
+![image](https://user-images.githubusercontent.com/55649656/114977632-9dd97a00-9ea5-11eb-98e4-63abff600d1c.png)
+
+
 ### 6.4 The Alarm Generator app
 
 * Ensure the following before running the app
